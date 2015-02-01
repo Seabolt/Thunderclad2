@@ -271,8 +271,6 @@ TCResult TCApplication::InitializeFileManager()
 		return result;
 
 #endif
-
-	mFileManager->SetEngineResourceDirectory("")
 }
 
 //
