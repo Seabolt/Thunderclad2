@@ -1,0 +1,10 @@
+*.opensdf
+*.sdf
+*.class
+*.log
+*.sou
+*.obj
+*.idb
+*.tlog
+*.lastbuildstate
+*.ilk

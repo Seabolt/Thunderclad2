@@ -271,6 +271,8 @@ TCResult TCApplication::InitializeFileManager()
 		return result;
 
 #endif
+
+	mFileManager->SetEngineResourceDirectory( TCString("C:/Thunderclad/Thunderclad/Thunderclad/Resources/") );
 }
 
 //
