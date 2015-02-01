@@ -1,0 +1,255 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Application">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Rendering">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Math">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Application\Globals">
+      <UniqueIdentifier>{27d41288-dd27-47a9-b1e3-7fe645c93117}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utilities">
+      <UniqueIdentifier>{8870309d-b014-4d7f-9585-27f1ba138a31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utilities\Strings">
+      <UniqueIdentifier>{5f11bf55-1c4a-4514-a0dd-a28720b0878d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Collections">
+      <UniqueIdentifier>{0f36afee-d7a1-4103-8321-f6f0a65e3085}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utilities\Memory">
+      <UniqueIdentifier>{93db1c6e-1502-4404-9894-ab919eed689e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utilities\Debugging">
+      <UniqueIdentifier>{c01cd006-1c8e-4386-9082-3241f7f04a57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Unit Testing">
+      <UniqueIdentifier>{ace7b524-46af-4eab-8bff-9408519a1527}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Unit Testing\Unit Tests">
+      <UniqueIdentifier>{989676ec-2e6e-4504-88e6-d073f989c8bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Communication">
+      <UniqueIdentifier>{c196a31d-99c3-4d28-968c-75b01dda304f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Input">
+      <UniqueIdentifier>{72dad6a2-75d4-4a18-9c6b-4248e50d0079}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="File">
+      <UniqueIdentifier>{e790411a-5e8a-44d5-ba92-b083b7a48e3c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\Application\TCApplication.h">
+      <Filter>Application</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Application\TCWindow.h">
+      <Filter>Application</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Math\TCBoundingBox2D.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Math\TCPoint2D.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Application\TCResultCode.h">
+      <Filter>Application</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Application\TCWindow.win32.h">
+      <Filter>Application</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Application\Globals\TCPlatformPrecompilerSymbols.h">
+      <Filter>Application\Globals</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Utilities\Strings\TCString.h">
+      <Filter>Utilities\Strings</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Utilities\Strings\TCStringUtils.h">
+      <Filter>Utilities\Strings</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Math\TCMathUtils.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Collections\TCList.h">
+      <Filter>Collections</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Utilities\Memory\TCMemUtils.h">
+      <Filter>Utilities\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Utilities\Debugging\TCLogger.h">
+      <Filter>Utilities\Debugging</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Unit Testing\TCUnitTestManager.h">
+      <Filter>Unit Testing</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Unit Testing\TCUnitTest.h">
+      <Filter>Unit Testing</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Unit Testing\Unit Tests\TCList_UnitTest.h">
+      <Filter>Unit Testing\Unit Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Collections\TCHashFunctions.h">
+      <Filter>Collections</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Collections\TCHashTable.h">
+      <Filter>Collections</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Unit Testing\Unit Tests\TCHashTable_UnitTest.h">
+      <Filter>Unit Testing\Unit Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Communication\TCEventListener.h">
+      <Filter>Communication</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Communication\TCEventDispatcher.h">
+      <Filter>Communication</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Communication\TCSystemEvents.h">
+      <Filter>Communication</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Unit Testing\Unit Tests\TCString_UnitTest.h">
+      <Filter>Unit Testing\Unit Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Math\TCVector2D.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Input\TCMouseInput.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Input\TCMouseInput.win32.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Input\TCInputManager.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Input\TCInputManager.win32.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Input\TCKeyboardInput.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Input\TCKeyCodes.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Input\TCKeyboardInput.win32.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\File\TCFileManager.h">
+      <Filter>File</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\File\TCFile.h">
+      <Filter>File</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\File\TCFileManager.win32.h">
+      <Filter>File</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\File\TCFile.win32.h">
+      <Filter>File</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Unit Testing\Unit Tests\TCFile_UnitTest.h">
+      <Filter>Unit Testing\Unit Tests</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\Application\TCWindow.cpp">
+      <Filter>Application</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Application\TCWindow.win32.cpp">
+      <Filter>Application</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Math\TCPoint2D.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Math\TCBoundingBox2D.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Utilities\Strings\TCString.cpp">
+      <Filter>Utilities\Strings</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Utilities\Strings\TCStringUtils.cpp">
+      <Filter>Utilities\Strings</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Collections\TCList.hpp">
+      <Filter>Collections</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Utilities\Debugging\TCLogger.cpp">
+      <Filter>Utilities\Debugging</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Unit Testing\TCUnitTest.cpp">
+      <Filter>Unit Testing</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Unit Testing\TCUnitTestManager.cpp">
+      <Filter>Unit Testing</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Unit Testing\Unit Tests\TCList_UnitTest.cpp">
+      <Filter>Unit Testing\Unit Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Collections\TCHashFunctions.cpp">
+      <Filter>Collections</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Collections\TCHashTable.hpp">
+      <Filter>Collections</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Unit Testing\Unit Tests\TCHashTable_UnitTest.cpp">
+      <Filter>Unit Testing\Unit Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Math\TCMathUtils.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Communication\TCEventListener.cpp">
+      <Filter>Communication</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Communication\TCEventDispatcher.cpp">
+      <Filter>Communication</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Application\TCApplication.cpp">
+      <Filter>Application</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Unit Testing\Unit Tests\TCString_UnitTest.cpp">
+      <Filter>Unit Testing\Unit Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Math\TCVector2D.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Input\TCMouseInput.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Input\TCMouseInput.win32.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Input\TCInputManager.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Input\TCInputManager.win32.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Input\TCKeyboardInput.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Input\TCKeyboardInput.win32.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\File\TCFile.cpp">
+      <Filter>File</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\File\TCFileManager.cpp">
+      <Filter>File</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\File\TCFileManager.win32.cpp">
+      <Filter>File</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\File\TCFile.win32.cpp">
+      <Filter>File</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Unit Testing\Unit Tests\TCFile_UnitTest.cpp">
+      <Filter>Unit Testing\Unit Tests</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

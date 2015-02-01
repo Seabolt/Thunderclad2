@@ -1,0 +1,81 @@
+﻿Build started 2/1/2015 10:35:23 AM.
+     1>Project "C:\Thunderclad\Thunderclad\Thunderclad\Thunderclad.vcxproj" on node 2 (Rebuild target(s)).
+     1>InitializeBuildStatus:
+         Creating "Debug\Thunderclad.tlog\unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Source\Application\TCApplication.cpp Source\Application\TCWindow.cpp Source\Application\TCWindow.win32.cpp Source\Collections\TCHashFunctions.cpp Source\Collections\TCHashTable.hpp Source\Collections\TCList.hpp Source\Communication\TCEventDispatcher.cpp Source\Communication\TCEventListener.cpp Source\File\TCFile.cpp Source\File\TCFile.win32.cpp Source\File\TCFileManager.cpp Source\File\TCFileManager.win32.cpp Source\Input\TCInputManager.cpp Source\Input\TCInputManager.win32.cpp Source\Input\TCKeyboardInput.cpp Source\Input\TCKeyboardInput.win32.cpp Source\Input\TCMouseInput.cpp Source\Input\TCMouseInput.win32.cpp Source\Math\TCBoundingBox2D.cpp Source\Math\TCMathUtils.cpp Source\Math\TCPoint2D.cpp Source\Math\TCVector2D.cpp "Source\Unit Testing\TCUnitTest.cpp" "Source\Unit Testing\TCUnitTestManager.cpp" "Source\Unit Testing\Unit Tests\TCHashTable_UnitTest.cpp" "Source\Unit Testing\Unit Tests\TCList_UnitTest.cpp" "Source\Unit Testing\Unit Tests\TCString_UnitTest.cpp" Source\Utilities\Debugging\TCLogger.cpp Source\Utilities\Strings\TCString.cpp Source\Utilities\Strings\TCStringUtils.cpp
+         TCStringUtils.cpp
+         TCString.cpp
+         TCLogger.cpp
+         TCString_UnitTest.cpp
+         TCList_UnitTest.cpp
+         TCHashTable_UnitTest.cpp
+         TCUnitTestManager.cpp
+         TCUnitTest.cpp
+         TCVector2D.cpp
+         TCPoint2D.cpp
+         TCMathUtils.cpp
+         TCBoundingBox2D.cpp
+         TCMouseInput.win32.cpp
+         TCMouseInput.cpp
+         TCKeyboardInput.win32.cpp
+         TCKeyboardInput.cpp
+         TCInputManager.win32.cpp
+         TCInputManager.cpp
+         TCFileManager.win32.cpp
+         TCFileManager.cpp
+         Generating Code...
+         Compiling...
+         TCFile.win32.cpp
+         TCFile.cpp
+         TCEventListener.cpp
+         TCEventDispatcher.cpp
+         TCList.hpp
+         TCHashTable.hpp
+         TCHashFunctions.cpp
+         TCWindow.win32.cpp
+         TCWindow.cpp
+         TCApplication.cpp
+         Generating Code...
+     1>c:\thunderclad\thunderclad\thunderclad\source\file\tcfile.win32.cpp(172): warning C4715: 'TCFile_Win32::Read' : not all control paths return a value
+     1>c:\thunderclad\thunderclad\thunderclad\source\file\tcfile.win32.cpp(456): warning C4715: 'TCFile_Win32::Open' : not all control paths return a value
+       Lib:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\Lib.exe /OUT:"C:\Thunderclad\Thunderclad Unit Tester\Thunderclad Unit Tester\Debug\Thunderclad.lib" /NOLOGO Debug\TCApplication.obj
+         Debug\TCWindow.obj
+         Debug\TCWindow.win32.obj
+         Debug\TCHashFunctions.obj
+         Debug\TCHashTable.obj
+         Debug\TCList.obj
+         Debug\TCEventDispatcher.obj
+         Debug\TCEventListener.obj
+         Debug\TCFile.obj
+         Debug\TCFile.win32.obj
+         Debug\TCFileManager.obj
+         Debug\TCFileManager.win32.obj
+         Debug\TCInputManager.obj
+         Debug\TCInputManager.win32.obj
+         Debug\TCKeyboardInput.obj
+         Debug\TCKeyboardInput.win32.obj
+         Debug\TCMouseInput.obj
+         Debug\TCMouseInput.win32.obj
+         Debug\TCBoundingBox2D.obj
+         Debug\TCMathUtils.obj
+         Debug\TCPoint2D.obj
+         Debug\TCVector2D.obj
+         Debug\TCUnitTest.obj
+         Debug\TCUnitTestManager.obj
+         Debug\TCHashTable_UnitTest.obj
+         Debug\TCList_UnitTest.obj
+         Debug\TCString_UnitTest.obj
+         Debug\TCLogger.obj
+         Debug\TCString.obj
+         Debug\TCStringUtils.obj
+         Thunderclad.vcxproj -> C:\Thunderclad\Thunderclad Unit Tester\Thunderclad Unit Tester\Debug\Thunderclad.lib
+       FinalizeBuildStatus:
+         Deleting file "Debug\Thunderclad.tlog\unsuccessfulbuild".
+         Touching "Debug\Thunderclad.tlog\Thunderclad.lastbuildstate".
+     1>Done Building Project "C:\Thunderclad\Thunderclad\Thunderclad\Thunderclad.vcxproj" (Rebuild target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:03.01

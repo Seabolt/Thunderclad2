@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{09538185-4168-4B70-AC7A-A038AE2A2544}</ProjectGuid>
+    <RootNamespace>Thunderclad</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);Source;Source\Application;Source\Rendering;Source\Math;Source\Application\Globals;Source\Utlities;Source\Utilities\Strings;Source\Utilities\Memory;Source\Utilities\Debugging;Source\Patterns;Source\Collections;Source\Unit Testing;Source\Unit Testing\Unit Tests;Source\Communication;Source\Input;Source\File</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);Source;Source\Application;Source\Rendering;Source\Math;Source\Application\Globals;Source\Utlities;Source\Utilities\Strings;Source\Utilities\Memory;Source\Utilities\Debugging;Source\Patterns;Source\Collections;Source\Unit Testing;Source\Unit Testing\Unit Tests;Source\Communication;Source\Input;Source\File</IncludePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\Application\Globals\TCPlatformPrecompilerSymbols.h" />
+    <ClInclude Include="Source\Application\TCApplication.h" />
+    <ClInclude Include="Source\Application\TCResultCode.h" />
+    <ClInclude Include="Source\Application\TCWindow.h" />
+    <ClInclude Include="Source\Application\TCWindow.win32.h" />
+    <ClInclude Include="Source\Collections\TCHashFunctions.h" />
+    <ClInclude Include="Source\Collections\TCHashTable.h" />
+    <ClInclude Include="Source\Collections\TCList.h" />
+    <ClInclude Include="Source\Communication\TCEventDispatcher.h" />
+    <ClInclude Include="Source\Communication\TCEventListener.h" />
+    <ClInclude Include="Source\Communication\TCSystemEvents.h" />
+    <ClInclude Include="Source\File\TCFile.h" />
+    <ClInclude Include="Source\File\TCFile.win32.h" />
+    <ClInclude Include="Source\File\TCFileManager.h" />
+    <ClInclude Include="Source\File\TCFileManager.win32.h" />
+    <ClInclude Include="Source\Input\TCInputManager.h" />
+    <ClInclude Include="Source\Input\TCInputManager.win32.h" />
+    <ClInclude Include="Source\Input\TCKeyboardInput.h" />
+    <ClInclude Include="Source\Input\TCKeyboardInput.win32.h" />
+    <ClInclude Include="Source\Input\TCKeyCodes.h" />
+    <ClInclude Include="Source\Input\TCMouseInput.h" />
+    <ClInclude Include="Source\Input\TCMouseInput.win32.h" />
+    <ClInclude Include="Source\Math\TCMathUtils.h" />
+    <ClInclude Include="Source\Math\TCBoundingBox2D.h" />
+    <ClInclude Include="Source\Math\TCPoint2D.h" />
+    <ClInclude Include="Source\Math\TCVector2D.h" />
+    <ClInclude Include="Source\Unit Testing\TCUnitTest.h" />
+    <ClInclude Include="Source\Unit Testing\TCUnitTestManager.h" />
+    <ClInclude Include="Source\Unit Testing\Unit Tests\TCFile_UnitTest.h" />
+    <ClInclude Include="Source\Unit Testing\Unit Tests\TCHashTable_UnitTest.h" />
+    <ClInclude Include="Source\Unit Testing\Unit Tests\TCList_UnitTest.h" />
+    <ClInclude Include="Source\Unit Testing\Unit Tests\TCString_UnitTest.h" />
+    <ClInclude Include="Source\Utilities\Debugging\TCLogger.h" />
+    <ClInclude Include="Source\Utilities\Memory\TCMemUtils.h" />
+    <ClInclude Include="Source\Utilities\Strings\TCString.h" />
+    <ClInclude Include="Source\Utilities\Strings\TCStringUtils.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\Application\TCApplication.cpp" />
+    <ClCompile Include="Source\Application\TCWindow.cpp" />
+    <ClCompile Include="Source\Application\TCWindow.win32.cpp" />
+    <ClCompile Include="Source\Collections\TCHashFunctions.cpp" />
+    <ClCompile Include="Source\Collections\TCHashTable.hpp" />
+    <ClCompile Include="Source\Collections\TCList.hpp" />
+    <ClCompile Include="Source\Communication\TCEventDispatcher.cpp" />
+    <ClCompile Include="Source\Communication\TCEventListener.cpp" />
+    <ClCompile Include="Source\File\TCFile.cpp" />
+    <ClCompile Include="Source\File\TCFile.win32.cpp" />
+    <ClCompile Include="Source\File\TCFileManager.cpp" />
+    <ClCompile Include="Source\File\TCFileManager.win32.cpp" />
+    <ClCompile Include="Source\Input\TCInputManager.cpp" />
+    <ClCompile Include="Source\Input\TCInputManager.win32.cpp" />
+    <ClCompile Include="Source\Input\TCKeyboardInput.cpp" />
+    <ClCompile Include="Source\Input\TCKeyboardInput.win32.cpp" />
+    <ClCompile Include="Source\Input\TCMouseInput.cpp" />
+    <ClCompile Include="Source\Input\TCMouseInput.win32.cpp" />
+    <ClCompile Include="Source\Math\TCBoundingBox2D.cpp" />
+    <ClCompile Include="Source\Math\TCMathUtils.cpp" />
+    <ClCompile Include="Source\Math\TCPoint2D.cpp" />
+    <ClCompile Include="Source\Math\TCVector2D.cpp" />
+    <ClCompile Include="Source\Unit Testing\TCUnitTest.cpp" />
+    <ClCompile Include="Source\Unit Testing\TCUnitTestManager.cpp" />
+    <ClCompile Include="Source\Unit Testing\Unit Tests\TCFile_UnitTest.cpp" />
+    <ClCompile Include="Source\Unit Testing\Unit Tests\TCHashTable_UnitTest.cpp" />
+    <ClCompile Include="Source\Unit Testing\Unit Tests\TCList_UnitTest.cpp" />
+    <ClCompile Include="Source\Unit Testing\Unit Tests\TCString_UnitTest.cpp" />
+    <ClCompile Include="Source\Utilities\Debugging\TCLogger.cpp" />
+    <ClCompile Include="Source\Utilities\Strings\TCString.cpp" />
+    <ClCompile Include="Source\Utilities\Strings\TCStringUtils.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
