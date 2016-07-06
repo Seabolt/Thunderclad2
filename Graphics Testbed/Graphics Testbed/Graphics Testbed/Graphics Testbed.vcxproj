@@ -39,10 +39,10 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);..\..\..\Thunderclad\Thunderclad\Source;..\..\..\Thunderclad\Thunderclad\Source\Application;..\..\..\Thunderclad\Thunderclad\Source\Collections;..\..\..\Thunderclad\Thunderclad\Source\Communication;..\..\..\Thunderclad\Thunderclad\Source\Math;..\..\..\Thunderclad\Thunderclad\Source\Unit Testing;..\..\..\Thunderclad\Thunderclad\Source\Unit Testing\Unit Tests;..\..\..\Thunderclad\Thunderclad\Source\Utilities\Strings;..\..\..\Thunderclad\Thunderclad\Source\Utilities\Debugging;..\..\..\Thunderclad\Thunderclad\Source\Utilities\Memory;..\..\..\Thunderclad\Thunderclad\Source\Application\Globals;..\..\..\Thunderclad\Thunderclad\Source\Input;..\..\..\Thunderclad\Thunderclad\Source\File</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);..\..\..\Thunderclad\Thunderclad\Source;..\..\..\Thunderclad\Thunderclad\Source\Application;..\..\..\Thunderclad\Thunderclad\Source\Collections;..\..\..\Thunderclad\Thunderclad\Source\Communication;..\..\..\Thunderclad\Thunderclad\Source\Math;..\..\..\Thunderclad\Thunderclad\Source\Unit Testing;..\..\..\Thunderclad\Thunderclad\Source\Unit Testing\Unit Tests;..\..\..\Thunderclad\Thunderclad\Source\Utilities\Strings;..\..\..\Thunderclad\Thunderclad\Source\Utilities\Debugging;..\..\..\Thunderclad\Thunderclad\Source\Utilities\Memory;..\..\..\Thunderclad\Thunderclad\Source\Application\Globals;..\..\..\Thunderclad\Thunderclad\Source\Input;..\..\..\Thunderclad\Thunderclad\Source\File;..\..\..\Thunderclad\Thunderclad\Source\Rendering;..\..\..\Thunderclad\Thunderclad\Source\Graphics</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);..\..\..\Thunderclad\Thunderclad\Source;..\..\..\Thunderclad\Thunderclad\Source\Application;..\..\..\Thunderclad\Thunderclad\Source\Collections;..\..\..\Thunderclad\Thunderclad\Source\Communication;..\..\..\Thunderclad\Thunderclad\Source\Math;..\..\..\Thunderclad\Thunderclad\Source\Unit Testing;..\..\..\Thunderclad\Thunderclad\Source\Unit Testing\Unit Tests;..\..\..\Thunderclad\Thunderclad\Source\Utilities\Strings;..\..\..\Thunderclad\Thunderclad\Source\Utilities\Debugging;..\..\..\Thunderclad\Thunderclad\Source\Utilities\Memory;..\..\..\Thunderclad\Thunderclad\Source\Application\Globals;..\..\..\Thunderclad\Thunderclad\Source\Input;..\..\..\Thunderclad\Thunderclad\Source\File</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);..\..\..\Thunderclad\Thunderclad\Source;..\..\..\Thunderclad\Thunderclad\Source\Application;..\..\..\Thunderclad\Thunderclad\Source\Collections;..\..\..\Thunderclad\Thunderclad\Source\Communication;..\..\..\Thunderclad\Thunderclad\Source\Math;..\..\..\Thunderclad\Thunderclad\Source\Unit Testing;..\..\..\Thunderclad\Thunderclad\Source\Unit Testing\Unit Tests;..\..\..\Thunderclad\Thunderclad\Source\Utilities\Strings;..\..\..\Thunderclad\Thunderclad\Source\Utilities\Debugging;..\..\..\Thunderclad\Thunderclad\Source\Utilities\Memory;..\..\..\Thunderclad\Thunderclad\Source\Application\Globals;..\..\..\Thunderclad\Thunderclad\Source\Input;..\..\..\Thunderclad\Thunderclad\Source\File;..\..\..\Thunderclad\Thunderclad\Source\Rendering;</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -52,7 +52,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>..\..\..\Thunderclad\Debug;..\..\..\Thunderclad\Release;..\Debug</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\Debug</AdditionalLibraryDirectories>
       <AdditionalDependencies>Thunderclad.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>

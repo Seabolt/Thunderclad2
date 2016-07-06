@@ -20,15 +20,16 @@ TCResult TCWindow::Initialize( TCWindow::Description& desc )
 	// Set the bounds and position of the window.
 	//
 
-	m_Bounds.center.Set( desc.xPosition + (desc.width / 2.0f), desc.yPosition + (desc.height / 2.0f) );
-	m_Position.Set( desc.xPosition, desc.yPosition );
+	mBounds.center.Set( desc.xPosition + (desc.width / 2.0f), desc.yPosition + (desc.height / 2.0f) );
+	mBounds.extents.Set( desc.width / 2.0f, desc.height / 2.0f );
+	mPosition.Set( desc.xPosition, desc.yPosition );
 
 	//
 	// Copy over our flags
 	//
 
-	m_WindowButtonFlags = desc.windowButtonFlags;
-	m_WindowFlags = desc.windowFlags;
+	mWindowButtonFlags = desc.windowButtonFlags;
+	mWindowFlags = desc.windowFlags;
 
 	return TCResult::Success;
 }

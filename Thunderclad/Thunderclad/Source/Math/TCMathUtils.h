@@ -23,6 +23,20 @@ namespace TCMathUtils
 	float	Acos( float in );
 	double	Acos( double in );
 	int		Acos( int in );
+
+	float	Log10( float in );
+	int		Log10( int in );
+	double	Log10( double in );
+
+	float	Pow( float in, int exp );
+	int		Pow( int pow, int exp );
+	double	Pow( double pow, int exp );
+
+	float	Floor( float in );
+	double	Floor( double in );
+
+	float	Ceil( float in );
+	double	Ceil( double in );
 }
 
 #endif

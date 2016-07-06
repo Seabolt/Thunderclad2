@@ -1,0 +1,47 @@
+---
+ShaderProperties:
+    EntryPoint  : UnlitHomogenousPS
+    Profile     : ps_4_0
+    Model       : HLSL_4
+    Attributes  :
+        - name  : color
+          size  : kShaderAttributeTypeFloat4
+          usage : kShaderAttributeUsageColor0
+ShaderText: >
+    //--
+    // UnlitHomogenous.rps
+    //
+    // This vertex shader will color geometry with only a homogenous transform.
+    //--
+
+    //--
+    // PixelInput
+    //--
+    struct PixelInput
+    {
+        float4 color    : COLOR;
+    };
+
+    //--
+    // PixelOutput
+    //--
+    struct PixelOutput
+    {
+        float4 color    : COLOR;
+    };
+
+    //--
+    // Global Variables
+    //--
+
+    //--
+    // Main Function
+    //--
+    PixelOutput UnlitHomogenousPS( PixelInput input )
+    {
+        PixelOutput output = (PixelOutput)0;
+
+        output.color = input.color;
+        
+        return output;
+    }

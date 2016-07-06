@@ -19,4 +19,10 @@
 #define TC_SAFE_DELETE( x )				if( x != NULL ){ delete x; x = NULL; }
 #define TC_SAFE_DELETE_ARRAY( x )		if( x != NULL ){ delete[] x; x = NULL; }
 
+namespace TCMemoryUtils
+{
+	bool MemCopySafe( const void* source, void* dest, unsigned int dataSize );
+	bool MemCopy( const void* source, void* dest, unsigned int dataSize );
+}
+
 #endif // __TCMEM_UTILS_H__

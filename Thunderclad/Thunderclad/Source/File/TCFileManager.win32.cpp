@@ -91,7 +91,7 @@ TCFileManager_Win32::~TCFileManager_Win32()
 
 TCResult TCFileManager_Win32::Initialize()
 {
-	return Success;
+	return TCFileManager::Initialize();
 }
 
 //
@@ -367,7 +367,8 @@ TCResult TCFileManager_Win32::CreateDirectory( const TCString& path )
 	BOOL result = CreateDirectoryA( path.Data(), NULL );
 	if( result == FALSE )
 	{
-		gLogger->LogError( TCString( "[TCFile] Failed to create a directory at: " ) + path.Data() );
+		DWORD lastError = GetLastError();
+		gLogger->LogError( TCString( "[TCFile] Failed to create a directory at: " ) + path.Data() + TCString( ". Last error: " ) + (int)lastError );
 		return Failure_InvalidPath;
 	}
 
@@ -393,6 +394,14 @@ TCResult TCFileManager_Win32::DeleteDirectory( const TCString& path )
 		gLogger->LogError( TCString( "[TCFile] Failed to delete directory named: " ) + path );
 		return Failure_InvalidPath;
 	}
+	
+	//
+	// Make sure you double terminate the filepath.
+	//
+
+	char pathToUse[ MAX_PATH + 1 ];
+	TCStringUtils::Copy( pathToUse, path.Data() );
+	pathToUse[ path.Length() + 1 ] = NULL_TERMINATOR;
 
 	//
 	// Launch a shell operation to remove the directory silently and without UI.
@@ -401,8 +410,8 @@ TCResult TCFileManager_Win32::DeleteDirectory( const TCString& path )
 	SHFILEOPSTRUCT shellOp = {
         NULL,
         FO_DELETE,
-        path.Data(),
-        "",
+        pathToUse,
+        NULL,
         FOF_NOCONFIRMATION |
         FOF_NOERRORUI |
         FOF_SILENT,
@@ -413,7 +422,14 @@ TCResult TCFileManager_Win32::DeleteDirectory( const TCString& path )
     int result = SHFileOperation(&shellOp);
 	if( result != 0 )
 	{
-		return Failure_Unknown;
+		if( result == 2 )	// FILE_NOT_FOUND_ERROR
+		{
+			return Failure_FileNotFound;
+		}
+		else
+		{
+			return Failure_Unknown;		
+		}
 	}
 
 	return Success;
@@ -596,7 +612,7 @@ TCFileAttributeFlag TCFileManager_Win32::GetFileAccessType( const TCString& path
 bool TCFileManager_Win32::FileExists( const TCString& path )
 {
 	DWORD fileAttributes = GetFileAttributes( path.Data() );
-	if( fileAttributes & INVALID_FILE_ATTRIBUTES || fileAttributes & FILE_ATTRIBUTE_DIRECTORY )
+	if( fileAttributes == INVALID_FILE_ATTRIBUTES || (fileAttributes & FILE_ATTRIBUTE_DIRECTORY) )
 		return false;
 
 	return true;
@@ -614,7 +630,10 @@ bool TCFileManager_Win32::FileExists( const TCString& path )
 bool TCFileManager_Win32::DirectoryExists( const TCString& path )
 {
 	DWORD fileAttributes = GetFileAttributes( path.Data() );
-	if( !(fileAttributes & INVALID_FILE_ATTRIBUTES) && fileAttributes & FILE_ATTRIBUTE_DIRECTORY )
+	if( fileAttributes == INVALID_FILE_ATTRIBUTES )
+		return false;
+
+	if( (fileAttributes & FILE_ATTRIBUTE_DIRECTORY) != 0 )
 		return true;
 
 	return false;
@@ -632,6 +651,33 @@ bool TCFileManager_Win32::DirectoryExists( const TCString& path )
 TCString TCFileManager_Win32::GetRootDirectory()
 {
 	return TCString( "C:/" );
+}
+
+//
+// GetProgramDirectory
+//		- Will return a string representing the program directory for the application.
+// Inputs:
+//		- None.
+// Outputs:
+//		- TCString: The program directory
+//
+
+TCString TCFileManager_Win32::GetProgramDirectory()
+{
+	if( mProgramDirectory.IsEmpty() )
+	{
+		char buffer[ _MAX_PATH ];
+		char* bufferPtr = buffer;
+		if( _get_pgmptr( &bufferPtr ) == 0 )
+		{
+			mProgramDirectory = bufferPtr;	// This will get us a path to the executable.
+			int directoryStartIndex = mProgramDirectory.FindLastIndexOf( '\\' );
+			mProgramDirectory.Substring( 0, directoryStartIndex - 1, mProgramDirectory );
+			mProgramDirectory.ReplaceAllInstances( '\\', '/' );
+		}
+	}
+
+	return mProgramDirectory;
 }
 
 //

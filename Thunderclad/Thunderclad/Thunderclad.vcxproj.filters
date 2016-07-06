@@ -46,6 +46,30 @@
     <Filter Include="File">
       <UniqueIdentifier>{e790411a-5e8a-44d5-ba92-b083b7a48e3c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Threading">
+      <UniqueIdentifier>{4ecb97fe-4227-4742-86d5-f549803ad849}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\OpenGL 4.x">
+      <UniqueIdentifier>{c0d58a06-573f-4a24-8afe-79a9bdbf5744}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\DirectX 11">
+      <UniqueIdentifier>{739e35f5-ee38-4784-9c50-322b6fd9423a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tools">
+      <UniqueIdentifier>{e269469b-2f81-46c2-8c06-3f15d384e521}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="File\yaml-cpp">
+      <UniqueIdentifier>{b0699c04-f382-49bf-98dc-0d7e1f7a5279}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="File\yaml-cpp\contrib">
+      <UniqueIdentifier>{264dbd02-4f59-4abf-a99f-d76b668a6b4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="File\yaml-cpp\node">
+      <UniqueIdentifier>{77ffa93b-68e2-4e41-8f9e-9d644a926e06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="File\yaml-cpp\node\detail">
+      <UniqueIdentifier>{a23e8504-63a4-4f0f-b6e0-b643c5c0c189}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application\TCApplication.h">
@@ -156,6 +180,174 @@
     <ClInclude Include="Source\Unit Testing\Unit Tests\TCFile_UnitTest.h">
       <Filter>Unit Testing\Unit Tests</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Threading\TCThread.h">
+      <Filter>Threading</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Threading\TCThreadWin32.h">
+      <Filter>Threading</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rendering\TCGraphicsContext.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rendering\TCRenderer.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rendering\OpenGL 4.0\TCGraphicsContext_OGL.h">
+      <Filter>Rendering\OpenGL 4.x</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rendering\DirectX 11\TCGraphicsContext_DX11.h">
+      <Filter>Rendering\DirectX 11</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rendering\TCVertexFormat.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rendering\TCVertexBuffer.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rendering\IGraphicsResource.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rendering\IGraphicsBuffer.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rendering\TCIndexBuffer.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rendering\TCShaderProgram.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rendering\TCShaderUniform.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rendering\TCConstantBuffer.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rendering\TCShaderAttribute.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\File\TCShaderImporter.h">
+      <Filter>File</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\File\yaml-cpp\anchor.h">
+      <Filter>File\yaml-cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\File\yaml-cpp\binary.h">
+      <Filter>File\yaml-cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\File\yaml-cpp\dll.h">
+      <Filter>File\yaml-cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\File\yaml-cpp\emitfromevents.h">
+      <Filter>File\yaml-cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\File\yaml-cpp\emitter.h">
+      <Filter>File\yaml-cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\File\yaml-cpp\emitterdef.h">
+      <Filter>File\yaml-cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\File\yaml-cpp\emittermanip.h">
+      <Filter>File\yaml-cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\File\yaml-cpp\emitterstyle.h">
+      <Filter>File\yaml-cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\File\yaml-cpp\eventhandler.h">
+      <Filter>File\yaml-cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\File\yaml-cpp\exceptions.h">
+      <Filter>File\yaml-cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\File\yaml-cpp\mark.h">
+      <Filter>File\yaml-cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\File\yaml-cpp\noncopyable.h">
+      <Filter>File\yaml-cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\File\yaml-cpp\null.h">
+      <Filter>File\yaml-cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\File\yaml-cpp\ostream_wrapper.h">
+      <Filter>File\yaml-cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\File\yaml-cpp\parser.h">
+      <Filter>File\yaml-cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\File\yaml-cpp\stlemitter.h">
+      <Filter>File\yaml-cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\File\yaml-cpp\traits.h">
+      <Filter>File\yaml-cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\File\yaml-cpp\yaml.h">
+      <Filter>File\yaml-cpp</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\File\yaml-cpp\contrib\anchordict.h">
+      <Filter>File\yaml-cpp\contrib</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\File\yaml-cpp\contrib\graphbuilder.h">
+      <Filter>File\yaml-cpp\contrib</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\File\yaml-cpp\node\convert.h">
+      <Filter>File\yaml-cpp\node</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\File\yaml-cpp\node\emit.h">
+      <Filter>File\yaml-cpp\node</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\File\yaml-cpp\node\impl.h">
+      <Filter>File\yaml-cpp\node</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\File\yaml-cpp\node\iterator.h">
+      <Filter>File\yaml-cpp\node</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\File\yaml-cpp\node\node.h">
+      <Filter>File\yaml-cpp\node</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\File\yaml-cpp\node\parse.h">
+      <Filter>File\yaml-cpp\node</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\File\yaml-cpp\node\ptr.h">
+      <Filter>File\yaml-cpp\node</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\File\yaml-cpp\node\type.h">
+      <Filter>File\yaml-cpp\node</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\File\yaml-cpp\node\detail\bool_type.h">
+      <Filter>File\yaml-cpp\node\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\File\yaml-cpp\node\detail\impl.h">
+      <Filter>File\yaml-cpp\node\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\File\yaml-cpp\node\detail\iterator.h">
+      <Filter>File\yaml-cpp\node\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\File\yaml-cpp\node\detail\iterator_fwd.h">
+      <Filter>File\yaml-cpp\node\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\File\yaml-cpp\node\detail\memory.h">
+      <Filter>File\yaml-cpp\node\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\File\yaml-cpp\node\detail\node.h">
+      <Filter>File\yaml-cpp\node\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\File\yaml-cpp\node\detail\node_data.h">
+      <Filter>File\yaml-cpp\node\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\File\yaml-cpp\node\detail\node_iterator.h">
+      <Filter>File\yaml-cpp\node\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\File\yaml-cpp\node\detail\node_ref.h">
+      <Filter>File\yaml-cpp\node\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Rendering\TCShader.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Math\TCPoint3D.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Math\TCVector3D.h">
+      <Filter>Math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Application\TCWindow.cpp">
@@ -250,6 +442,72 @@
     </ClCompile>
     <ClCompile Include="Source\Unit Testing\Unit Tests\TCFile_UnitTest.cpp">
       <Filter>Unit Testing\Unit Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Threading\TCThreadWin32.cpp">
+      <Filter>Threading</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rendering\TCGraphicsContext.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rendering\TCRenderer.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rendering\OpenGL 4.0\TCGraphicsContext_OGL.cpp">
+      <Filter>Rendering\OpenGL 4.x</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rendering\DirectX 11\TCGraphicsContext_DX11.cpp">
+      <Filter>Rendering\DirectX 11</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rendering\TCVertexFormat.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rendering\IGraphicsResource.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rendering\IGraphicsBuffer.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rendering\TCVertexBuffer.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Utilities\Memory\TCMemUtils.cpp">
+      <Filter>Utilities\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rendering\TCIndexBuffer.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rendering\DirectX 11\TCBufferContext_DX11.cpp">
+      <Filter>Rendering\DirectX 11</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rendering\DirectX 11\TCShaderContext_DX11.cpp">
+      <Filter>Rendering\DirectX 11</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rendering\TCShader.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rendering\TCShaderProgram.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rendering\TCShaderUniform.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rendering\TCConstantBuffer.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rendering\TCShaderAttribute.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\File\TCShaderImporter.cpp">
+      <Filter>File</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Application\TCResultCode.cpp">
+      <Filter>Application</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Math\TCPoint3D.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Math\TCVector3D.cpp">
+      <Filter>Math</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -8,6 +8,7 @@
 //
 
 #include "TCString.h"
+#include "TCList.h"
 #include <malloc.h>
 
 //
@@ -61,6 +62,22 @@ TCString::TCString( const TCString& string )
 }
 
 //
+// TCString Integer Constructor
+//		- Will initialize this string to the integer provided.
+// Inputs:
+//		- int value: The value to initialize the string to.
+// Outputs:
+//		- None.
+//
+
+TCString::TCString( int value )
+{
+	mString = NULL;
+	Copy( TCStringUtils::ItoA( value ) );
+	mLength = TCStringUtils::Length( Data() );
+}
+
+//
 // TCString Destructor
 //		- Will release all resources associated with this object.
 // Inputs:
@@ -90,6 +107,7 @@ char8* TCString::AllocateString( int length )
 	if( string == NULL )
 	{
 		// TODO: Log that there was an allocation failure. 
+		TC_ASSERT( "Failed to allocate string!" && 0 );
 	}
 
 	return string;
@@ -146,7 +164,7 @@ void TCString::ResizeString( int newSize )
 //		- int: The length of the string.
 //
 
-int TCString::Length()
+int TCString::Length() const
 {
 	return mLength;
 }
@@ -378,7 +396,7 @@ void TCString::Append( const TCString& string, unsigned int length )
 //			- >0 if this string is greater than the input.
 //
 
-int TCString::Compare( const char8* string )
+int TCString::Compare( const char8* string ) const
 {
 	return TCStringUtils::Compare( Data(), string );
 }
@@ -395,7 +413,7 @@ int TCString::Compare( const char8* string )
 //			- >0 if this string is greater than the input.
 //
 
-int TCString::Compare( const TCString& string )
+int TCString::Compare( const TCString& string ) const
 {
 	return Compare( string.Data() );
 }
@@ -443,7 +461,7 @@ int TCString::CompareInsensitive( const TCString& string )
 //		- None.
 //
 
-bool TCString::Equal( const char8* string )
+bool TCString::Equal( const char8* string ) const
 {
 	return Compare( string ) == 0;
 }
@@ -457,7 +475,7 @@ bool TCString::Equal( const char8* string )
 //		- None.
 //
 
-bool TCString::Equal( const TCString& string )
+bool TCString::Equal( const TCString& string ) const
 {
 	return Equal( string.Data() );
 }
@@ -671,6 +689,148 @@ void TCString::Substring( unsigned int startIndex, unsigned int endIndex, TCStri
 }
 
 //
+// ReplaceAllInstances
+//		- Will find all instances of a specified character and replace it with a specified character.
+// Inputs:
+//		- char8 charToReplace: The character to replace.
+//		- char8 charToReplaceWith: The character to replace with.
+// Outputs:
+//		- None.
+//
+
+void TCString::ReplaceAllInstances( const char8 charToReplace, const char8 charToReplaceWith )
+{
+	if( mString == NULL )
+		return;
+
+	for( unsigned int currentChar = 0; currentChar < mLength; ++currentChar )
+	{
+		if( mString[ currentChar ] == charToReplace )
+		{
+			mString[ currentChar ] = charToReplaceWith;
+		}
+	}
+}
+
+//
+// RemoveAllInstances
+//		- Will find all instances of a specified character and remove it.
+// Inputs:
+//		- const char8 charToRemove: The character to remove.
+// Outputs:
+//		- None.
+//
+
+void TCString::RemoveAllInstances( const char8 charToRemove )
+{
+	if( mString == NULL )
+		return;
+
+	int numInstances = 0;
+	for( unsigned int currentChar = 0; currentChar < mLength; ++currentChar )
+	{
+		if( mString[ currentChar ] == charToRemove )
+		{
+			numInstances++;
+		}
+	}
+
+	if( numInstances > 0 )
+	{
+		char8* prevString = mString;
+		ResizeString( mLength - numInstances + 1);
+
+		int numRemoved = 0;
+		for( unsigned currentChar = 0; currentChar < mLength; ++currentChar )
+		{
+			if( prevString[ currentChar ] != charToRemove )
+			{
+				mString[ currentChar - numRemoved ] = prevString[ currentChar ]; 
+			}
+			else
+			{
+				numRemoved++;
+			}
+		}
+
+		mLength = mLength - numInstances;
+	}
+}
+
+//
+// TrimWhitespaceLeft
+//		- Will remove all tabs, spaces, and line feeds from the left of a string.
+// Inputs:
+//		- None.
+// Outputs:
+//		- None.
+//
+
+void TCString::TrimWhitespaceLeft()
+{
+	//
+	// Determine how many whitespace characters are in the string.
+	//
+
+	int numWhitespaceCharacters = 0;
+	for( unsigned int currentChar = 0; currentChar < mLength; ++currentChar )
+	{
+		if( TCStringUtils::IsWhitespaceCharacter( mString[ currentChar ] ) )
+		{
+			numWhitespaceCharacters++;
+		}
+		else
+		{
+			break;
+		}
+	}
+
+	//
+	// Early out if possible.
+	//
+
+	if( numWhitespaceCharacters == 0 )
+		return;
+
+	//
+	// Resize the string.
+	//
+
+	int newLength = mLength - numWhitespaceCharacters;
+	int prevLength = mLength;
+	char* prevString = mString;
+	ResizeString( newLength + 1);
+	mLength = newLength;
+
+	//
+	// Copy over all the characters except whitespace characters.
+	//
+
+	int currentTrimChar = 0;
+	int numWhitespaceCharactersRemaining = numWhitespaceCharacters;
+	for( int currentChar = 0; currentChar < prevLength; ++currentChar )
+	{
+		if( !TCStringUtils::IsWhitespaceCharacter( prevString[ currentChar ] ) && numWhitespaceCharacters-- > 0 )
+		{
+			mString[ currentTrimChar++ ] = prevString[ currentChar ];
+		}
+	}
+
+	//
+	// Release the previous string.
+	//
+
+	ReleaseString( prevString );
+
+	//
+	// Update our length again.
+	//
+
+	mLength = newLength;
+	mString[ mLength ] = NULL_TERMINATOR;
+}
+
+//
 // TrimWhitespace
 //		- Will remove all tabs, spaces, and line feeds from a string.
 // Inputs:
@@ -789,6 +949,41 @@ bool TCString::StartsWith( const char8* string )
 bool TCString::StartsWith( const TCString& string )
 {
 	return StartsWith( string.Data() );
+}
+
+//
+// Split
+//		- Will create an array of sub strings separated by a delimiter.
+// Inputs:
+//		- const char8 delimiter: The character that represents the end of a substring.
+//		- TCList< TCString > subStrings: The list of substrings found.
+// Ouputs:
+//		- TCString*: The array of substrings.
+//
+
+void TCString::Split( const char8 delimiter, TCList< TCString >& subStrings )
+{
+	unsigned int currentSubStringStart = 0;
+	unsigned int currentSubStringEnd = 0;
+	TCString subString;
+
+	for( int currentCharacter = 0; currentCharacter < Length(); ++currentCharacter )
+	{
+		if( mString[ currentCharacter ] == delimiter ||
+			currentCharacter == Length() - 1 )
+		{
+			currentSubStringEnd = currentCharacter - 1;		// Exclude the delimiter.
+
+			//
+			// Create the sub string.
+			//
+
+			Substring( currentSubStringStart, currentSubStringEnd, subString );
+			subStrings.Append( subString );
+
+			currentSubStringStart = currentCharacter + 1;	// Set us up for the next string.
+		}
+	}
 }
 
 //
@@ -983,7 +1178,7 @@ void TCString::operator+=( const int value )
 //		- bool: Is this string the same as the string provided.
 //
 
-bool TCString::operator==( const char8* string )
+bool TCString::operator==( const char8* string ) const
 {
 	return Equal( string );
 }
@@ -997,7 +1192,7 @@ bool TCString::operator==( const char8* string )
 //		- bool: Is this string the same as the string provided.
 //
 
-bool TCString::operator==( const TCString& string )
+bool TCString::operator==( const TCString& string ) const
 {
 	return (*this) == string.Data();
 }
@@ -1011,7 +1206,7 @@ bool TCString::operator==( const TCString& string )
 //		- bool: Is this string the same as the string provided.
 //
 
-bool TCString::operator==( const char8 character )
+bool TCString::operator==( const char8 character ) const
 {
 	char8 string[2];
 	string[ 0 ] = character;
@@ -1029,7 +1224,7 @@ bool TCString::operator==( const char8 character )
 //		- bool: Is this string the same as the value provided.
 //
 
-bool TCString::operator==( const int value )
+bool TCString::operator==( const int value ) const
 {
 	TCString valStr = TCStringUtils::ItoA( value );
 	return (*this) == valStr;

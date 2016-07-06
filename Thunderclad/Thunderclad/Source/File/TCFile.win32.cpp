@@ -9,6 +9,7 @@
 
 #include "TCFile.win32.h"
 #include "TCLogger.h"
+#include <share.h>
 #include <sys/stat.h>
 
 //
@@ -99,7 +100,7 @@ TCResult TCFile_Win32::Write( void* data, unsigned int dataLength )
 		return Failure_InvalidOperation;
 
 	if( mAccessType == TCFileManager::Access_ReadOnly )
-		return Success_Cached;
+		return Failure_InvalidAccess;
 
 	//
 	// Write to the file.
@@ -128,7 +129,7 @@ TCResult TCFile_Win32::Write( void* data, unsigned int dataLength )
 //			- Failure_InvalidOperation: The file is not open.
 //
 
-TCResult TCFile_Win32::Write( TCString& text )
+TCResult TCFile_Win32::Write( TCString text )
 {
 	return Write( text.Data(), text.Length() );
 }
@@ -169,6 +170,8 @@ TCResult TCFile_Win32::Read( void** data, unsigned int dataLength )
 		gLogger->LogError( TCString( "[TCFile] Failed to write to file: " ) + mFilename + TCString( ". Error number: " ) + error );
 		return Failure_InvalidOperation;
 	}
+
+	return feof(mFile) != 0 ? Success_EndOfFile : Success;
 }
 
 //
@@ -185,7 +188,7 @@ TCResult TCFile_Win32::Read( void** data, unsigned int dataLength )
 
 TCResult TCFile_Win32::ReadLine( TCString& text )
 {
-	return ReadText( text, '\r' );
+	return ReadText( text, '\n' );
 }
 
 //
@@ -249,15 +252,43 @@ TCResult TCFile_Win32::ReadText( TCString& text, char8 delimiter )
 	//
 
 	int character = 0;
-	while( character != delimiter && character != EOF )
+	text.Clear();
+	while( true )
 	{
 		character = fgetc( mFile );
+		if( character == delimiter || character == EOF )
+			break;
+
 		char8 c = (char8)character;
 
 		text += c;
 	}
 
-	return Success;
+	if( character == EOF )
+	{
+		return Success_EndOfFile;
+	}
+	else
+	{
+		return Success;
+	}
+}
+
+//
+// ReadFile
+//		- This will read the entire file into a string.
+// Inputs:
+//		- TCString& text: The string to put the text into.
+// Outputs:
+//		- TCResult: The result of the operation.
+//			- Success: The file read worked.
+//			- Failure_InvalidAccess: The file can't be read.
+//			- Failure_InvalidOperation: The file is not open.
+//
+
+TCResult TCFile_Win32::ReadFile( TCString& text )
+{
+	return ReadText( text, GetEofCharacter() );
 }
 
 //
@@ -306,7 +337,7 @@ TCResult TCFile_Win32::SeekRead( unsigned int position )
 	if( position < 0 || position > mFileLength )
 		return Failure_OutOfBounds;
 
-	int result = fseek( mFile, position, SEEK_CUR );
+	int result = fseek( mFile, position, SEEK_SET );
 	if( result != 0 )
 	{
 		gLogger->LogError( TCString( "[TCFile] Failed to seek in file, error returned" ) + ferror( mFile ) );
@@ -334,6 +365,40 @@ TCResult TCFile_Win32::SeekRead( unsigned int position )
 TCResult TCFile_Win32::SeekWrite( unsigned int position )
 {
 	return SeekRead( position );
+}
+
+//
+// GetReadPosition
+//		- Will return the current read position of the file.
+// Inputs:
+//		- None.
+// Outputs:
+//		- unsigned int: The current read position.
+//
+
+unsigned int TCFile_Win32::GetReadPosition()
+{
+	if( mFile == NULL || mIsOpen == false )
+	{
+		return -1;
+	}
+
+	mReadPosition = ftell( mFile );
+	return mReadPosition;
+}
+
+//
+// GetWritePosition
+//		- Will return the current write position of the file.
+// Inputs:
+//		- None.
+// Outputs:
+//		- unsigned int: The current write position.
+//
+
+unsigned int TCFile_Win32::GetWritePosition()
+{
+	return GetReadPosition();
 }
 
 //
@@ -402,7 +467,7 @@ TCResult TCFile_Win32::Open( TCFileManager::FileDescription& desc )
 	//	Try and open the file.
 	//
 
-	errno_t error = fopen_s( &mFile, desc.path.Data(), mode.Data() );
+	mFile = _fsopen( desc.path.Data(), mode.Data(), _SH_DENYNO );
 	if( mFile == NULL )
 	{
 		return Failure_InvalidPath;
@@ -453,6 +518,7 @@ TCResult TCFile_Win32::Open( TCFileManager::FileDescription& desc )
 	}
 
 	mFilepath.Substring( fileNameStartIndex, fileExtensionStartIndex, mFilename );
+	return Success;
 }
 
 //
@@ -552,4 +618,18 @@ TCString TCFile_Win32::GetModeString( TCFileManager::FileDescription& descriptio
 	}
 
 	return mode;
+}
+
+//
+// GetEofCharacter
+//		- Will return the platform Eof character.
+// Inputs:
+//		- None
+// Outputs:
+//		- char: The eof character.
+//
+
+char TCFile_Win32::GetEofCharacter()
+{
+	return EOF;
 }

@@ -20,6 +20,8 @@
 #define TC_ASCII_UPPERCASE_RANGE_START	(65)
 #define TC_ASCII_UPPERCASE_RANGE_END	(90)
 #define TC_ASCII_CASE_CONVERSION_AMOUNT	(TC_ASCII_LOWERCASE_RANGE_START - TC_ASCII_UPPERCASE_RANGE_START)
+#define TC_ASCII_NUMERIC_RANGE_START	(48)
+#define TC_ASCII_NUMERIC_RANGE_END		(57)
 
 namespace TCStringUtils
 {
@@ -370,7 +372,7 @@ namespace TCStringUtils
 	//		- int: The value represented in the string.
 	//
 
-	int AtoI( TCString string )
+	int AtoI( TCString& string )
 	{
 		//
 		// Check to see if the string is empty.
@@ -403,9 +405,264 @@ namespace TCStringUtils
 				return 0;
 			}
 
-			result = result * 10 + string[ currentChar ] - '0';
+			result = result * 10 + string[ currentChar ] - TC_ASCII_NUMERIC_RANGE_START;
 		}
 
 		return result * sign;
+	}
+
+	//
+	// FtoA
+	//		- Will convert a float to a string.
+	// Inputs:
+	//		- float value: The float to convert.
+	//		- int precision: The precision of the string.
+	// Outputs:
+	//		- TCString: The string representing the float.
+	//
+
+	TCString TCStringUtils::FtoA( float value, int precision )
+	{
+		//
+		// Handle our special cases.
+		//
+
+		if( isnan( value ) )
+		{
+			return TCString( "NaN" );
+		}
+		else if( isinf( value ) )
+		{
+			return TCString( "Inf" );
+		}
+		else if( value == 0.0f )
+		{
+			return TCString( "0" );
+		}
+
+		TCString result;
+		char text[ 32 ];
+		char* textBuffer = text;
+
+		int magnitude = (int)TCMathUtils::Log10( value );
+		int sciNotationMagnitude = magnitude;
+		int digit = -1;
+
+		bool isNegative = value < 0.0f;
+		bool printExponent = magnitude >= 14 || ( isNegative && magnitude >= 9 || magnitude <= -9 );
+		
+		if( isNegative ) *(textBuffer++) = '-';
+
+		//
+		// Setup for scientific notation if necessary.
+		//
+
+		if( printExponent )
+		{
+			if( magnitude < 0 )
+			{
+				magnitude -= 1;
+			}
+
+			value = value / TCMathUtils::Pow( 10.0f, magnitude );	// Shear off the exponent and get the mantissa.
+			sciNotationMagnitude = magnitude;
+			magnitude = 0;
+		}
+
+		//
+		// Clamp our magnitude
+		//
+
+		if( magnitude < 1 )
+		{
+			magnitude = 0;
+		}
+
+		//
+		// Generate the digits.
+		//
+
+		while( value > precision || magnitude >= 0 )
+		{
+			//
+			// Determine the current digit.
+			//
+
+			float weight = TCMathUtils::Pow( 10.0f, magnitude );
+			if( weight > 0 && !isinf( weight ) )
+			{
+				digit = (int)TCMathUtils::Floor( value / weight );		// Get the current digit.
+				value -= digit * weight;								// Reduce value by the digit we just added, eg, move from hundreds to tens.
+				*(textBuffer++) = TC_ASCII_NUMERIC_RANGE_START + digit;	// Append the numeric character, eg: '0', '1'
+			}
+
+			//
+			// Check to see if we need to add the decimal.
+			//
+
+			if( magnitude == 0 && value > 0 )
+			{
+				*(textBuffer++) = '.'; 
+			}
+
+			//
+			// Reduce our magnitude
+			//
+
+			magnitude--;
+		}
+
+		//
+		// Append the scientific notation, if necessary.
+		//
+
+		if( printExponent )
+		{
+			//
+			// Determine the prefix's sign.
+			//
+
+			*(textBuffer++) = 'e';
+			if( sciNotationMagnitude > 0 )
+			{
+				*(textBuffer++) = '+';
+			}
+			else
+			{
+				*(textBuffer++) = '-';
+				sciNotationMagnitude = -sciNotationMagnitude;
+			}
+
+			magnitude = 0;
+			while( sciNotationMagnitude > 0 )
+			{
+				*(textBuffer++) = TC_ASCII_NUMERIC_RANGE_START + (sciNotationMagnitude % 10); // Determine the current notation digit.
+				sciNotationMagnitude /= 10;
+				magnitude++; // Use magnitude as a counter for how many digits are in the notation.
+			}
+
+			//
+			// Swap the digits order, since they are outputted backwards
+			//
+
+			textBuffer -= magnitude; // Move back to the start of the notation.
+			int startOfMagnitude = 0;
+			int endOfMagnitude = 0;
+			for( startOfMagnitude = 0, endOfMagnitude = magnitude - 1; startOfMagnitude < endOfMagnitude; ++startOfMagnitude, --endOfMagnitude )
+			{
+				textBuffer[ startOfMagnitude ] ^= textBuffer[ endOfMagnitude ];
+				textBuffer[ endOfMagnitude ] ^= textBuffer[ startOfMagnitude ];
+				textBuffer[ startOfMagnitude ] ^= textBuffer[ endOfMagnitude ];
+			}
+			textBuffer += magnitude; // Move back to the end of the string.
+		}
+
+		//
+		// Terminate the string and return the result.
+		//
+
+		*(textBuffer) = '\0';
+		result = textBuffer;
+		return result;
+	}
+
+	//
+	// AtoF
+	//		- Will convert a string to a float.
+	// Inputs:
+	//		- TCString text: The text of the float to convert.
+	// Outputs:
+	//		- float: The float result.
+	//
+
+	float TCStringUtils::AtoF( TCString& text )
+	{
+		char8* string				= text.Data();
+		bool isNegative				= string[ 0 ] == '-';
+		bool negativeExponent		= false;
+		int decimalIndex			= -1;
+		int scientificNotationIndex = -1;
+		int scientificNotationExp	= 0;
+		int mantissa				= 0;
+		int sciNotationExponent		= 0;
+		float exponent				= 0.0f;
+
+		//
+		// First we need to find out the mantissa.
+		//
+
+		for( int currentChar = 0; currentChar < text.Length(); ++currentChar )
+		{
+			if( string[ currentChar ] == '.' )
+			{
+				decimalIndex = currentChar;
+				break;
+			}
+
+			if( string[ currentChar ] == 'f' )
+				continue;
+
+			mantissa = mantissa * 10 + (string[ currentChar ] - TC_ASCII_NUMERIC_RANGE_START);
+		}
+
+		//
+		// Next we need to determine the exponent.
+		//
+
+		if( decimalIndex > 0 )
+		{
+			int numExponentDigits = 0;
+			for( int currentChar = decimalIndex + 1; currentChar < text.Length(); ++currentChar )
+			{
+				if( string[ currentChar ] == 'e' )
+				{
+					scientificNotationIndex = currentChar + 2; // Move past the 'e' and the sign ('-','+')
+					negativeExponent = string[ currentChar + 1 ] == '-';
+					break;
+				}
+
+				if( string[ currentChar ] == 'f' )
+				{
+					continue;
+				}
+
+				exponent = exponent * 10.0f + (float)(string[ currentChar ] - TC_ASCII_NUMERIC_RANGE_START);
+			}
+		}
+
+
+		//
+		// Next we need to read the scientific notation exponent.
+		//
+
+		if( scientificNotationIndex > 0 )
+		{
+			for( int currentChar = scientificNotationIndex; currentChar < text.Length(); ++currentChar )
+			{
+				if( string[ currentChar ] == 'f' )
+					continue;
+
+				scientificNotationExp = scientificNotationExp * 10 + (string[ currentChar ] - TC_ASCII_NUMERIC_RANGE_START);
+			}
+		}
+
+		//
+		// Now we need to combine everything to make the actual value.
+		//
+
+		float result = (float)mantissa;
+		
+		if( exponent > 0.0f )
+		{
+			while( exponent > 1.0f ) exponent /= 10.0f;
+			result += exponent;
+		}
+
+		if( scientificNotationExp > 0.0f )
+		{
+			result *= TCMathUtils::Pow( 10, scientificNotationExp );
+		}
+
+		return result;
 	}
 }

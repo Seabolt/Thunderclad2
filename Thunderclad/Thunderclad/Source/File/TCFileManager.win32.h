@@ -60,6 +60,7 @@ class TCFileManager_Win32 :
 		virtual bool				FileExists( const TCString& path );
 		virtual bool				DirectoryExists( const TCString& path );
 		virtual TCString			GetRootDirectory();
+		virtual TCString			GetProgramDirectory();
 
 	protected:	// Members
 	protected:	// Methods

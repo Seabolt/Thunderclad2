@@ -9,6 +9,7 @@
 
 #include "TCFileManager.h"
 #include "TCFile.h"
+#include "TCLogger.h"
 
 //
 // Defines
@@ -26,6 +27,7 @@ TCFileManager::TCFileManager()
 {
 	mResourceDirectory = "";
 	mEngineResourceDirectory = "";
+	mProgramDirectory = "";
 }
 
 //
@@ -85,6 +87,23 @@ TCFileManager::~TCFileManager()
 
 TCResult TCFileManager::Initialize()
 {
+	TCResult result = Success;
+
+	//
+	// Initialize our engine directory.
+	//
+
+	mEngineResourceDirectory = GetProgramDirectory() + "/Thunderclad Resources/";
+	if( !DirectoryExists( mEngineResourceDirectory ) )
+	{
+		result = CreateDirectory( mEngineResourceDirectory );
+		if( TC_FAILED( result ) )
+		{
+			gLogger->LogFailure( "[TCFile] Failed to create engine resource directory!" );
+			return result;
+		}
+	}
+
 	return Success;
 }
 
@@ -187,7 +206,14 @@ TCResult TCFileManager::CloseFile( TCFile* file )
 	// Call the file's close.
 	// 
 
-	return file->Close();
+	TCResult result =  file->Close();
+	
+	//
+	// Release the file and return the result.
+	//
+
+	delete file;
+	return result;
 }
 
 //
@@ -343,6 +369,21 @@ TCString TCFileManager::GetRootDirectory()
 }
 
 //
+// GetProgramDirectory
+//		- Will return the current directory where the application is.
+// Inputs:
+//		- None.
+// Outputs:
+//		- TCString: The current directory.
+//
+
+TCString TCFileManager::GetProgramDirectory()
+{
+	TC_ASSERT( "This is the platform agnostic layer, this should be overwritten." && 0 );
+	return "";
+}
+
+//
 // SetResourceDirectory
 //		- Will set the resource directory for an application.
 // Inputs:
@@ -399,7 +440,7 @@ void TCFileManager::SetEngineResourceDirectory( TCString& path )
 //		- TCString: The resource directory.
 //
 
-TCString TCFileManager::GetEngineResourceDirectory( TCString& path )
+TCString TCFileManager::GetEngineResourceDirectory()
 {
 	return mEngineResourceDirectory;
 }

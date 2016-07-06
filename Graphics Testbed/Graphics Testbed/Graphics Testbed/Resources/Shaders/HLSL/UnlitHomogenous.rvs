@@ -1,0 +1,73 @@
+---
+ShaderProperties:
+    EntryPoint                      : UnlitHomogenousVS
+    Profile                         : vs_4_0
+    Model                           : HLSL_4
+    ConstantBuffers:
+        - name                      : cbObjectProperties
+          register                  : 2
+          size                      : 12
+          shaderType                : kShaderTypeVertex
+    Uniforms:
+        - name                      : gTint
+          type                      : kShaderUniformTypeFloat4
+          defaultValue              : 1.0f, 1.0f, 1.0f, 1.0f
+          constantBuffer            : cbObjectProperties
+          constantBufferOffset      : 0
+          usage                     : Property
+    Attributes:
+        - name                      : position
+          type                      : kShaderAttributeTypeFloat4
+          usage                     : kShaderAttributeUsagePosition
+
+        - name                      : color
+          type                      : kShaderAttributeTypeFloat4
+          usage                     : kShaderAttributeUsageColor0
+
+ShaderText:  >
+    //--
+    // UnlitHomogenous.vs
+    //
+    // This vertex shader will color geometry with only a homogenous transform.
+    //--
+
+    //--
+    // VertexInput
+    //--
+    struct VertexInput
+    {
+        float4 position : POSITION;
+        float4 color    : COLOR;
+    };
+
+    //--
+    // VertexOutput
+    //--
+    struct VertexOutput
+    {
+        float4 position : SV_POSITION;
+        float4 color    : COLOR;
+    };
+
+    //--
+    // Global Variables
+    //--
+
+    cbuffer cbObjectProperties : register(b2)
+    {
+        float4 gTint = float4( 1.0f, 1.0f, 1.0f, 1.0f );
+    };
+
+    //--
+    // Main Function
+    //--
+    VertexOutput UnlitHomogenousVS( VertexInput input )
+    {
+        VertexOutput output = (VertexOutput)0;
+
+        output.position = input.position * gTint;
+        output.color = input.color;
+
+        return output;
+    }
+...

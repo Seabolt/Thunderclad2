@@ -115,7 +115,7 @@ TCResult TCFile::Write( void* data, unsigned int dataLength )
 //			- Failure_InvalidOperation: The file is not open.
 //
 
-TCResult TCFile::Write( TCString& text )
+TCResult TCFile::Write( TCString text )
 {
 	TC_ASSERT( "This is the platform agnostic write, this should be overloaded." && 0 );
 	return Failure_NotImplemented;
@@ -144,7 +144,7 @@ TCResult TCFile::Read( void** data, unsigned int dataLength )
 // ReadLine
 //		- This will allow the user to read a line from the file.
 // Inputs:
-//		- TCString& text: The string to place the line.
+//		- TCString text: The string to place the line.
 // Outputs:
 //		- TCResult: The result of the operation.
 //			- Success: We read from the file successfully.
@@ -162,7 +162,7 @@ TCResult TCFile::ReadLine( TCString& text )
 // ReadWord
 //		- This will allow the user to read a word from a file.
 // Inputs:
-//		- TCString& word: The string to place the word.
+//		- TCString word: The string to place the word.
 // Outputs:
 //		- TCResult: The result of the operation.
 //			- Success: We read from the file successfully.
@@ -180,7 +180,7 @@ TCResult TCFile::ReadWord( TCString& word )
 // ReadChar
 //		- This will read the next character out of the file.
 // Inputs:
-//		- char8& character: The character to fill.
+//		- char8 character: The character to fill.
 // Outputs:
 //		- TCResult: The result of the operation.
 //			- Success: We read from the file successfully.
@@ -198,7 +198,7 @@ TCResult TCFile::ReadChar( char8& character )
 // ReadText
 //		- This will allow the user to read until a specified delimiter.
 // Inputs:
-//		- TCString& text: The string to place the text.
+//		- TCString text: The string to place the text.
 //		- char8 delimiter: The character that signifies when to stop.
 // Outputs:
 //		- TCResult: The result of the operation.
@@ -210,6 +210,24 @@ TCResult TCFile::ReadChar( char8& character )
 TCResult TCFile::ReadText( TCString& text, char8 delimiter )
 {
 	TC_ASSERT( "This is the platform agnostic read text, this should be overloaded." && 0 );
+	return Failure_NotImplemented;
+}
+
+//
+// ReadFile
+//		- This will allow the user to read all the text from the file.
+// Inputs:
+//		- TCString& text: The string to place the text.
+// Outputs:
+//		- TCResult: The result of the operation.
+//			- Success: We read from the file successfully.
+//			- Failure_InvalidAccess: The file is not read-able.
+//			- Failure_InvalidOperation: The file is not open.
+//
+
+TCResult TCFile::ReadFile( TCString& text )
+{
+	TC_ASSERT( "This is the platform agnostic read file, this should be overloaded." && 0 );
 	return Failure_NotImplemented;
 }
 
@@ -264,6 +282,34 @@ TCResult TCFile::SeekWrite( unsigned int position )
 {
 	TC_ASSERT( "This is the platform agnostic seek write, this should be overloaded." && 0 );
 	return Failure_NotImplemented;
+}
+
+//
+// GetReadPosition
+//		- Will return the current read position in the file.
+// Inputs:
+//		- None
+// Outputs:
+//		- unsigned int: the current position.
+//
+
+unsigned int TCFile::GetReadPosition()
+{
+	return 0;
+}
+
+//
+// GetWritePosition
+//		- Will return the current write position in the file.
+// Inputs:
+//		- None.
+// Outputs:
+//		- unsigned int: The current position.
+//
+
+unsigned int TCFile::GetWritePosition()
+{
+	return 0;
 }
 
 //
@@ -325,4 +371,18 @@ TCResult TCFile::Close()
 {
 	TC_ASSERT( "This is the platform agnostic file close, this should be overloaded." && 0 );
 	return Failure_NotImplemented;
+}
+
+//
+// GetEndOfFileCharacter
+//		- This function will determine the platform End-of-File character
+// Inputs:
+//		- None.
+// Outputs:
+//		- None.
+//
+
+char TCFile::GetEofCharacter()
+{
+	return (char)-1;
 }

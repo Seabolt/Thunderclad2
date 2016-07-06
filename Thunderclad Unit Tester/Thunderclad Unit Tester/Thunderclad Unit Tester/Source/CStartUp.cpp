@@ -16,6 +16,13 @@
 #include "TCList_UnitTest.h"
 #include "TCHashTable_UnitTest.h"
 #include "TCString_UnitTest.h"
+#include "TCFile_UnitTest.h"
+
+#include "TCPlatformPrecompilerSymbols.h"
+
+#if TC_PLATFORM_WIN32
+	#include "TCFileManager.Win32.h"
+#endif
 
 //
 // Defines
@@ -93,6 +100,11 @@ int WINAPI WinMain(HINSTANCE hInstance,
 	TCLogger::GetInstance()->SetLogName("Thunderclad");
 	TCLogger::GetInstance()->LogInfo("Successfully created the main window!");
 
+#if TC_PLATFORM_WIN32
+	TCFileManager_Win32* gFileManager = new TCFileManager_Win32();
+	gFileManager->Initialize();
+#endif
+
 	//
 	// Run Unit Test
 	//
@@ -101,6 +113,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
 	TCUnitTestManager::GetInstance()->AddUnitTest( new TCString_UnitTest() );
 	TCUnitTestManager::GetInstance()->AddUnitTest( new TCList_UnitTest() );
 	TCUnitTestManager::GetInstance()->AddUnitTest( new TCHashTable_UnitTest() );
+	TCUnitTestManager::GetInstance()->AddUnitTest( new TCFile_UnitTest( gFileManager ) );
 	TCUnitTestManager::GetInstance()->StartTests();
 
 	//

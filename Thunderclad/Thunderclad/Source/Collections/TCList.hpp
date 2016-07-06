@@ -68,6 +68,7 @@ TCList< Object >::TCList( float growthRate )
 template <class Object>
 TCList< Object >::TCList( const TCList& toCopy )
 {
+	mList = NULL;
 	Copy( toCopy );
 }
 

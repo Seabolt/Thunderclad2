@@ -57,8 +57,9 @@ class TCWindow : public TCEventDispatcher
 		virtual void				Draw();
 		virtual void				Destroy();
 
-				TCPoint2D			GetPosition()	{ return m_Position; }
-				TCBoundingBox2D		GetBounds()		{ return m_Bounds; }
+				TCPoint2D			GetPosition()	{ return mPosition; }
+				TCBoundingBox2D		GetBounds()		{ return mBounds; }
+				bool				IsFullScreen()	{ return mIsFullScreen; }
 
 	protected:	// Methods
 		virtual TCResult			Initialize( Description& desc );
@@ -106,10 +107,11 @@ class TCWindow : public TCEventDispatcher
 
 	protected:	// Members
 
-		TCPoint2D		m_Position;
-		TCBoundingBox2D m_Bounds;
-		unsigned int	m_WindowFlags;
-		unsigned int	m_WindowButtonFlags;
+		TCPoint2D		mPosition;
+		TCBoundingBox2D mBounds;
+		unsigned int	mWindowFlags;
+		unsigned int	mWindowButtonFlags;
+		bool			mIsFullScreen;
 };
 
 #endif

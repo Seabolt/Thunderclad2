@@ -43,7 +43,10 @@ namespace TCStringUtils
 	bool IsNumericCharacter( char8 character );
 
 	TCString ItoA( int value, int base = 10 );
-	int AtoI( TCString string );
+	int AtoI( TCString& string );
+
+	TCString FtoA( float value, int precision = 5);
+	float AtoF( TCString& string );
 }
 
 #endif // __TCSTRING_UTILS_H__

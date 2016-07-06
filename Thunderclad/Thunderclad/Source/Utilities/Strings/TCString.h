@@ -12,6 +12,7 @@
 
 #include "TCPlatformPrecompilerSymbols.h"
 #include "TCStringUtils.h"
+#include "TCList.h"
 
 //
 // Defines
@@ -26,10 +27,11 @@ class TCString
 		TCString();
 		TCString( const char8* string );
 		TCString( const TCString& string );
+		TCString( int value );
 
 		virtual ~TCString();
 
-		int Length();
+		int Length() const;
 
 		bool IsEmpty();
 		void Clear();
@@ -44,14 +46,14 @@ class TCString
 		void Append( const TCString& string );
 		void Append( const TCString& string, unsigned int length );
 
-		int Compare( const char8* string );
-		int Compare( const TCString& string );
+		int Compare( const char8* string ) const;
+		int Compare( const TCString& string ) const;
 
 		int CompareInsensitive( const char8* string );
 		int CompareInsensitive( const TCString& string );
 
-		bool Equal( const char8* string );
-		bool Equal( const TCString& string );
+		bool Equal( const char8* string ) const;
+		bool Equal( const TCString& string ) const;
 
 		bool Contains( const char8* string );
 		bool Contains( const TCString& string );
@@ -67,10 +69,16 @@ class TCString
 		void Substring( unsigned int startIndex, TCString& outString );
 		void Substring( unsigned int startIndex, unsigned int endIndex, TCString& outString );
 
+		void ReplaceAllInstances( const char8 charToFind, const char8 charToReplaceWith );
+		void RemoveAllInstances( const char8 charToRemove );
+
+		void TrimWhitespaceLeft();
 		void TrimWhitespace();
 
 		bool StartsWith( const char8* string );
 		bool StartsWith( const TCString& string );
+
+		void Split( const char8 delimiter, TCList< TCString >& subStrings );
 
 		TCString& operator=( const TCString& string );
 		TCString& operator=( const char8* string );
@@ -87,17 +95,17 @@ class TCString
 		void operator+=( const char character );
 		void operator+=( const int value );
 
-		bool operator==( const TCString& string );
-		bool operator==( const char8* string );
-		bool operator==( const char character );
-		bool operator==( const int value );
+		bool operator==( const TCString& string ) const;
+		bool operator==( const char8* string )	  const;
+		bool operator==( const char character )	  const;
+		bool operator==( const int value )		  const;
 
 		bool operator!=( const TCString& string );
 		bool operator!=( const char8* string );
 		bool operator!=( const char character );
 		bool operator!=( const int value );
 
-		char8 operator[]( unsigned int index ) { TC_ASSERT( mString != NULL && index > 0 && index < mLength ); return mString[ index ]; }
+		char8 operator[]( unsigned int index ) { TC_ASSERT( mString != NULL && index >= 0 && index < mLength ); return mString[ index ]; }
 
 		char8* Data() const { return mString; } 
 

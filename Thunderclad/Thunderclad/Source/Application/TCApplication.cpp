@@ -14,10 +14,15 @@
 #include "TCMouseInput.h"
 #include "TCKeyboardInput.h"
 #include "TCLogger.h"
+#include "TCShader.h"
 
 #if TC_PLATFORM_WIN32
 	#include "TCInputManager.win32.h"
 	#include "TCFileManager.win32.h"
+#endif
+
+#if TC_GRAPHICS_PLATFORM_DX11
+	#include "TCGraphicsContext_DX11.h"
 #endif
 
 //
@@ -34,10 +39,11 @@
 
 TCApplication::TCApplication()
 {
-	mMainWindow		= NULL;
-	mInputManager	= NULL;
-	mFileManager	= NULL;
-	mExitGame		= false;
+	mMainWindow			= NULL;
+	mInputManager		= NULL;
+	mFileManager		= NULL;
+	mGraphicsContext	= NULL;
+	mExitGame			= false;
 }
 
 //
@@ -111,6 +117,18 @@ void TCApplication::Initialize( TCWindow* mainWindow )
 	//
 
 	InitializeInput();
+
+	//
+	// Create File manager
+	//
+
+	InitializeFileManager();
+
+	//
+	// Create our graphics context.
+	//
+
+	InitializeGraphicsContext();
 }
 
 //
@@ -130,9 +148,46 @@ bool TCApplication::Update( float deltaTime )
 		return true;	// Kill the game.
 	}
 
+	RenderFrame();
+
 	return false;		// Continue running the game.
 }
 
+//
+// RenderFrame
+//		- Will render a single frame.
+// Inputs:
+//		- None.
+// Outputs:
+//		- TCResult: The result of the frame.
+//
+
+TCResult TCApplication::RenderFrame()
+{
+	if( mGraphicsContext == NULL ) return Failure_InvalidState;
+
+	//
+	// Begin the frame.
+	//
+
+	TCResult result = mGraphicsContext->BeginFrame();
+	if( TC_FAILED( result ) )
+	{
+		return result;
+	}
+
+	//
+	// End the frame.
+	//
+
+	result = mGraphicsContext->EndFrame();
+	if( TC_FAILED( result ) )
+	{
+		return result;
+	}
+
+	return Success;
+}
 
 //
 // CleanUp
@@ -147,6 +202,7 @@ void TCApplication::CleanUp()
 {
 	TC_SAFE_DELETE( mInputManager );
 	TC_SAFE_DELETE( mFileManager );
+	TC_SAFE_DELETE( mGraphicsContext );
 }
 
 //
@@ -197,6 +253,7 @@ void TCApplication::Clone( const TCApplication& inRef )
 	mExitGame			= inRef.mExitGame;
 	mInputManager		= inRef.mInputManager;
 	mFileManager		= inRef.mFileManager;
+	mGraphicsContext	= inRef.mGraphicsContext;
 
 	TCEventDispatcher::Clone( inRef );
 	TCEventListener::Clone( inRef );
@@ -273,6 +330,33 @@ TCResult TCApplication::InitializeFileManager()
 #endif
 
 	mFileManager->SetEngineResourceDirectory( TCString("C:/Thunderclad/Thunderclad/Thunderclad/Resources/") );
+	return result;
+}
+
+//
+// InitializeGraphicsContext
+//		- Will create and initialize the graphics context.
+// Inputs:
+//		- None.
+// Outputs:
+//		- TCResult: The result of the operation.
+//
+
+TCResult TCApplication::InitializeGraphicsContext()
+{
+#if TC_PLATFORM_WIN32
+	#if TC_GRAPHICS_PLATFORM_DX11
+		
+		TCGraphicsContext_DX11::Description desc;
+		desc.mNumBuffers = 2;
+		desc.mWindow = mMainWindow;
+		desc.mFileManager = mFileManager;
+
+		mGraphicsContext = new TCGraphicsContext_DX11();
+		TCResult result = mGraphicsContext->Initialize( desc );
+		return result;
+	#endif
+#endif
 }
 
 //

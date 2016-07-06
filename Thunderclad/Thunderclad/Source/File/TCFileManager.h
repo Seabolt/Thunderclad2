@@ -94,10 +94,11 @@ class TCFileManager
 		virtual bool				FileExists( const TCString& path );
 		virtual bool				DirectoryExists( const TCString& path );
 		virtual TCString			GetRootDirectory();
+		virtual TCString			GetProgramDirectory();
 				void				SetResourceDirectory( TCString& path );
 				TCString			GetResourceDirectory();
 				void				SetEngineResourceDirectory( TCString& path );
-				TCString			GetEngineResourceDirectory( TCString& path );
+				TCString			GetEngineResourceDirectory();
 
 	protected:	// Members
 		struct FileDescription
@@ -111,6 +112,7 @@ class TCFileManager
 		TCList< TCFile* >	mOpenedFiles;
 		TCString			mResourceDirectory;
 		TCString			mEngineResourceDirectory;
+		TCString			mProgramDirectory;
 
 	protected:	// Methods
 		virtual void		Clone( const TCFileManager& inRef );

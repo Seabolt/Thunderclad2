@@ -68,7 +68,6 @@ LRESULT CALLBACK DefaultWindowMessagePump( HWND hWnd,
 
 			window = gWindowBeingInitialized;
 		}
-
 	}
 
 	//
@@ -177,6 +176,17 @@ TCResult TCWindow_Win32::Initialize( TCWindow_Win32::Win32Description& descripti
 	if( TC_FAILED( result ) )
 	{
 		gLogger->LogError("[TCWindow] Tried to create a window with a invalid description.");
+		return result;
+	}
+
+	//
+	// Do our base initialize
+	//
+
+	result = TCWindow::Initialize( description );
+	if( TC_FAILED( result ) )
+	{
+		gLogger->LogError( "[TCWindow] Failed base initialization." );
 		return result;
 	}
 

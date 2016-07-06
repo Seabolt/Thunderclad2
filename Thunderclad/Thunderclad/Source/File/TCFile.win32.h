@@ -30,24 +30,27 @@ class TCFile_Win32
 	: public TCFile
 {		
 		virtual TCResult		Write( void* data, unsigned int dataLength );
-		virtual TCResult		Write( TCString& text );
+		virtual TCResult		Write( TCString text );
 
 		virtual TCResult		Read( void** data, unsigned int dataLength );
 		virtual TCResult		ReadLine( TCString& line );
 		virtual TCResult		ReadWord( TCString& word );
 		virtual TCResult		ReadChar( char& character );
 		virtual TCResult		ReadText( TCString& text, char8 delimiter );
+		virtual TCResult		ReadFile( TCString& text );
 
 		virtual TCResult		Flush();
 
 		inline	bool			IsOpen()										{ return mIsOpen; }
-		inline	unsigned int	GetReadPosition()								{ return mReadPosition; }
-		inline	unsigned int	GetWritePosition()								{ return mWritePosition; }
+		virtual	unsigned int	GetReadPosition();
+		virtual	unsigned int	GetWritePosition();
 		inline  TCString&		GetFilepath()									{ return mFilepath; }
 		inline	TCString&		GetFilename()									{ return mFilename; }
 
 		virtual TCResult		SeekRead( unsigned int position );
 		virtual TCResult		SeekWrite( unsigned int position );
+
+		virtual char			GetEofCharacter();
 
 	protected:		// Members
 		FILE* mFile;

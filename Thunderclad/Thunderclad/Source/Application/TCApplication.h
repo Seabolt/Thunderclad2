@@ -20,6 +20,7 @@
 class TCWindow;
 class TCInputManager;
 class TCFileManager;
+class TCGraphicsContext;
 
 //
 // Class Declaration
@@ -38,6 +39,7 @@ class TCApplication :
 		
 		virtual void			Initialize( TCWindow* mainWindow );
 		virtual bool			Update( float deltaTime );
+		virtual TCResult		RenderFrame();
 		virtual void			CleanUp();
 
 		virtual void			Quit();
@@ -49,6 +51,7 @@ class TCApplication :
 		TCWindow*			mMainWindow;
 		TCInputManager*		mInputManager;
 		TCFileManager*		mFileManager;
+		TCGraphicsContext*	mGraphicsContext;
 
 		bool		mExitGame;
 
@@ -56,6 +59,7 @@ class TCApplication :
 		virtual void			Clone( const TCApplication& inRef );
 		virtual TCResult		InitializeInput();
 		virtual TCResult		InitializeFileManager();
+		virtual TCResult		InitializeGraphicsContext();
 
 		// Event Handlers.
 		virtual void			OnWindowDestroyed( void* eventData );

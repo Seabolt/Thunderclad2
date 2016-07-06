@@ -12,6 +12,11 @@
 #define TC_PLATFORM_ANDROID		0
 #define TC_PLATFORM_IPHONE		0
 
+#define TC_GRAPHICS_PLATFORM_DX11	1
+#define TC_GRAPHICS_PLATFORM_OGL4	0
+
+#define TC_BUILD_CONFIGURATION_DEBUG	_DEBUG
+
 #if TC_PLATFORM_WIN32
 	#include <assert.h>
 	#define TC_ASSERT( x ) assert( x )

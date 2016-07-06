@@ -22,7 +22,7 @@
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -39,20 +39,28 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);Source;Source\Application;Source\Rendering;Source\Math;Source\Application\Globals;Source\Utlities;Source\Utilities\Strings;Source\Utilities\Memory;Source\Utilities\Debugging;Source\Patterns;Source\Collections;Source\Unit Testing;Source\Unit Testing\Unit Tests;Source\Communication;Source\Input;Source\File</IncludePath>
+    <IncludePath>$(WindowsSDK_IncludePath);$(VC_IncludePath);Source;Source\Application;Source\Rendering;Source\Math;Source\Application\Globals;Source\Utlities;Source\Utilities\Strings;Source\Utilities\Memory;Source\Utilities\Debugging;Source\Patterns;Source\Collections;Source\Unit Testing;Source\Unit Testing\Unit Tests;Source\Communication;Source\Input;Source\File;Source\File\JSON;Source\File\yaml-cpp;Source\File\yaml-cpp\contrib;Source\File\yaml-cpp\node\detail;Source\File\yaml-cpp\node;Source\Threading;Source\Rendering\OpenGL 4.0;Source\Rendering\DirectX 11;Source\Rendering\DirectX 11\Includes</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);Source;Source\Application;Source\Rendering;Source\Math;Source\Application\Globals;Source\Utlities;Source\Utilities\Strings;Source\Utilities\Memory;Source\Utilities\Debugging;Source\Patterns;Source\Collections;Source\Unit Testing;Source\Unit Testing\Unit Tests;Source\Communication;Source\Input;Source\File</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);Source;Source\Application;Source\Rendering;Source\Math;Source\Application\Globals;Source\Utlities;Source\Utilities\Strings;Source\Utilities\Memory;Source\Utilities\Debugging;Source\Patterns;Source\Collections;Source\Unit Testing;Source\Unit Testing\Unit Tests;Source\Communication;Source\Input;Source\File;Source\File\JSON;Source\File\yaml-cpp;Source\File\yaml-cpp\contrib;Source\File\yaml-cpp\node\detail;Source\File\yaml-cpp\node;Source\Threading;Source\Rendering\OpenGL 4.0;Source\Rendering\DirectX 11;Source\Rendering\DirectX 11\Includes</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <ProgramDataBaseFileName>$(IntDir)Thunderclad.pdb</ProgramDataBaseFileName>
+      <ObjectFileName>$(IntDir)/%(RelativeDir)/</ObjectFileName>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Lib>
+      <AdditionalDependencies>d3d11.lib;d3dcompiler.lib;libyaml-cppmdd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+    <Lib>
+      <AdditionalLibraryDirectories>Bin\x86\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -67,6 +75,12 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
+    <Lib>
+      <AdditionalDependencies>d3d11.lib;libyaml-cppmdd.lib;d3dx11.lib;d3dx11d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+    <Lib>
+      <AdditionalLibraryDirectories>Bin\x86\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application\Globals\TCPlatformPrecompilerSymbols.h" />
@@ -84,6 +98,44 @@
     <ClInclude Include="Source\File\TCFile.win32.h" />
     <ClInclude Include="Source\File\TCFileManager.h" />
     <ClInclude Include="Source\File\TCFileManager.win32.h" />
+    <ClInclude Include="Source\File\TCShaderImporter.h" />
+    <ClInclude Include="Source\File\yaml-cpp\anchor.h" />
+    <ClInclude Include="Source\File\yaml-cpp\binary.h" />
+    <ClInclude Include="Source\File\yaml-cpp\contrib\anchordict.h" />
+    <ClInclude Include="Source\File\yaml-cpp\contrib\graphbuilder.h" />
+    <ClInclude Include="Source\File\yaml-cpp\dll.h" />
+    <ClInclude Include="Source\File\yaml-cpp\emitfromevents.h" />
+    <ClInclude Include="Source\File\yaml-cpp\emitter.h" />
+    <ClInclude Include="Source\File\yaml-cpp\emitterdef.h" />
+    <ClInclude Include="Source\File\yaml-cpp\emittermanip.h" />
+    <ClInclude Include="Source\File\yaml-cpp\emitterstyle.h" />
+    <ClInclude Include="Source\File\yaml-cpp\eventhandler.h" />
+    <ClInclude Include="Source\File\yaml-cpp\exceptions.h" />
+    <ClInclude Include="Source\File\yaml-cpp\mark.h" />
+    <ClInclude Include="Source\File\yaml-cpp\node\convert.h" />
+    <ClInclude Include="Source\File\yaml-cpp\node\detail\bool_type.h" />
+    <ClInclude Include="Source\File\yaml-cpp\node\detail\impl.h" />
+    <ClInclude Include="Source\File\yaml-cpp\node\detail\iterator.h" />
+    <ClInclude Include="Source\File\yaml-cpp\node\detail\iterator_fwd.h" />
+    <ClInclude Include="Source\File\yaml-cpp\node\detail\memory.h" />
+    <ClInclude Include="Source\File\yaml-cpp\node\detail\node.h" />
+    <ClInclude Include="Source\File\yaml-cpp\node\detail\node_data.h" />
+    <ClInclude Include="Source\File\yaml-cpp\node\detail\node_iterator.h" />
+    <ClInclude Include="Source\File\yaml-cpp\node\detail\node_ref.h" />
+    <ClInclude Include="Source\File\yaml-cpp\node\emit.h" />
+    <ClInclude Include="Source\File\yaml-cpp\node\impl.h" />
+    <ClInclude Include="Source\File\yaml-cpp\node\iterator.h" />
+    <ClInclude Include="Source\File\yaml-cpp\node\node.h" />
+    <ClInclude Include="Source\File\yaml-cpp\node\parse.h" />
+    <ClInclude Include="Source\File\yaml-cpp\node\ptr.h" />
+    <ClInclude Include="Source\File\yaml-cpp\node\type.h" />
+    <ClInclude Include="Source\File\yaml-cpp\noncopyable.h" />
+    <ClInclude Include="Source\File\yaml-cpp\null.h" />
+    <ClInclude Include="Source\File\yaml-cpp\ostream_wrapper.h" />
+    <ClInclude Include="Source\File\yaml-cpp\parser.h" />
+    <ClInclude Include="Source\File\yaml-cpp\stlemitter.h" />
+    <ClInclude Include="Source\File\yaml-cpp\traits.h" />
+    <ClInclude Include="Source\File\yaml-cpp\yaml.h" />
     <ClInclude Include="Source\Input\TCInputManager.h" />
     <ClInclude Include="Source\Input\TCInputManager.win32.h" />
     <ClInclude Include="Source\Input\TCKeyboardInput.h" />
@@ -94,7 +146,24 @@
     <ClInclude Include="Source\Math\TCMathUtils.h" />
     <ClInclude Include="Source\Math\TCBoundingBox2D.h" />
     <ClInclude Include="Source\Math\TCPoint2D.h" />
+    <ClInclude Include="Source\Math\TCPoint3D.h" />
     <ClInclude Include="Source\Math\TCVector2D.h" />
+    <ClInclude Include="Source\Math\TCVector3D.h" />
+    <ClInclude Include="Source\Rendering\DirectX 11\TCGraphicsContext_DX11.h" />
+    <ClInclude Include="Source\Rendering\IGraphicsBuffer.h" />
+    <ClInclude Include="Source\Rendering\IGraphicsResource.h" />
+    <ClInclude Include="Source\Rendering\OpenGL 4.0\TCGraphicsContext_OGL.h" />
+    <ClInclude Include="Source\Rendering\TCConstantBuffer.h" />
+    <ClInclude Include="Source\Rendering\TCGraphicsContext.h" />
+    <ClInclude Include="Source\Rendering\TCIndexBuffer.h" />
+    <ClInclude Include="Source\Rendering\TCRenderer.h" />
+    <ClInclude Include="Source\Rendering\TCShaderAttribute.h" />
+    <ClInclude Include="Source\Rendering\TCShaderProgram.h" />
+    <ClInclude Include="Source\Rendering\TCShaderUniform.h" />
+    <ClInclude Include="Source\Rendering\TCVertexBuffer.h" />
+    <ClInclude Include="Source\Rendering\TCVertexFormat.h" />
+    <ClInclude Include="Source\Threading\TCThread.h" />
+    <ClInclude Include="Source\Threading\TCThreadWin32.h" />
     <ClInclude Include="Source\Unit Testing\TCUnitTest.h" />
     <ClInclude Include="Source\Unit Testing\TCUnitTestManager.h" />
     <ClInclude Include="Source\Unit Testing\Unit Tests\TCFile_UnitTest.h" />
@@ -108,6 +177,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Application\TCApplication.cpp" />
+    <ClCompile Include="Source\Application\TCResultCode.cpp" />
     <ClCompile Include="Source\Application\TCWindow.cpp" />
     <ClCompile Include="Source\Application\TCWindow.win32.cpp" />
     <ClCompile Include="Source\Collections\TCHashFunctions.cpp" />
@@ -119,6 +189,7 @@
     <ClCompile Include="Source\File\TCFile.win32.cpp" />
     <ClCompile Include="Source\File\TCFileManager.cpp" />
     <ClCompile Include="Source\File\TCFileManager.win32.cpp" />
+    <ClCompile Include="Source\File\TCShaderImporter.cpp" />
     <ClCompile Include="Source\Input\TCInputManager.cpp" />
     <ClCompile Include="Source\Input\TCInputManager.win32.cpp" />
     <ClCompile Include="Source\Input\TCKeyboardInput.cpp" />
@@ -128,7 +199,27 @@
     <ClCompile Include="Source\Math\TCBoundingBox2D.cpp" />
     <ClCompile Include="Source\Math\TCMathUtils.cpp" />
     <ClCompile Include="Source\Math\TCPoint2D.cpp" />
+    <ClCompile Include="Source\Math\TCPoint3D.cpp" />
     <ClCompile Include="Source\Math\TCVector2D.cpp" />
+    <ClCompile Include="Source\Math\TCVector3D.cpp" />
+    <ClCompile Include="Source\Rendering\DirectX 11\TCBufferContext_DX11.cpp" />
+    <ClCompile Include="Source\Rendering\DirectX 11\TCGraphicsContext_DX11.cpp" />
+    <ClCompile Include="Source\Rendering\DirectX 11\TCShaderContext_DX11.cpp" />
+    <ClCompile Include="Source\Rendering\IGraphicsBuffer.cpp" />
+    <ClCompile Include="Source\Rendering\IGraphicsResource.cpp" />
+    <ClCompile Include="Source\Rendering\OpenGL 4.0\TCGraphicsContext_OGL.cpp" />
+    <ClCompile Include="Source\Rendering\TCConstantBuffer.cpp" />
+    <ClCompile Include="Source\Rendering\TCGraphicsContext.cpp" />
+    <ClCompile Include="Source\Rendering\TCIndexBuffer.cpp" />
+    <ClCompile Include="Source\Rendering\TCRenderer.cpp" />
+    <ClCompile Include="Source\Rendering\TCShader.cpp" />
+    <ClInclude Include="Source\Rendering\TCShader.h" />
+    <ClCompile Include="Source\Rendering\TCShaderAttribute.cpp" />
+    <ClCompile Include="Source\Rendering\TCShaderProgram.cpp" />
+    <ClCompile Include="Source\Rendering\TCShaderUniform.cpp" />
+    <ClCompile Include="Source\Rendering\TCVertexBuffer.cpp" />
+    <ClCompile Include="Source\Rendering\TCVertexFormat.cpp" />
+    <ClCompile Include="Source\Threading\TCThreadWin32.cpp" />
     <ClCompile Include="Source\Unit Testing\TCUnitTest.cpp" />
     <ClCompile Include="Source\Unit Testing\TCUnitTestManager.cpp" />
     <ClCompile Include="Source\Unit Testing\Unit Tests\TCFile_UnitTest.cpp" />
@@ -136,6 +227,7 @@
     <ClCompile Include="Source\Unit Testing\Unit Tests\TCList_UnitTest.cpp" />
     <ClCompile Include="Source\Unit Testing\Unit Tests\TCString_UnitTest.cpp" />
     <ClCompile Include="Source\Utilities\Debugging\TCLogger.cpp" />
+    <ClCompile Include="Source\Utilities\Memory\TCMemUtils.cpp" />
     <ClCompile Include="Source\Utilities\Strings\TCString.cpp" />
     <ClCompile Include="Source\Utilities\Strings\TCStringUtils.cpp" />
   </ItemGroup>
