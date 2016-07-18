@@ -804,7 +804,7 @@ TCResult TCShaderImporter::ParseShaderConstantBuffers( YAML::Node& node, Output*
 
 		if( constantBufferNode[ kConstantBufferSizeNodeId ] )
 		{
-			output->mConstantBufferData[ currentConstantBuffer ].bufferSize = TCStringUtils::AtoI( TCString( constantBufferNode[ kConstantBufferNameNodeId ].Scalar().c_str() ) );
+			output->mConstantBufferData[ currentConstantBuffer ].bufferSize = TCStringUtils::AtoI( TCString( constantBufferNode[ kConstantBufferSizeNodeId ].Scalar().c_str() ) );
 		}
 		else
 		{
@@ -874,7 +874,7 @@ TCResult TCShaderImporter::ParseShaderAttributes( YAML::Node& node, Output* outp
 
 		if( attributeNode[ kAttributeTypeNodeId ] )
 		{
-			output->mAttributeData[ currentShaderAttribute ].type = TCShaderAttribute::StringToType( TCString( attributeNode[ kAttributeNameNodeId ].Scalar().c_str() ) );
+			output->mAttributeData[ currentShaderAttribute ].type = TCShaderAttribute::StringToType( TCString( attributeNode[kAttributeTypeNodeId].Scalar().c_str() ) );
 		}
 		else
 		{

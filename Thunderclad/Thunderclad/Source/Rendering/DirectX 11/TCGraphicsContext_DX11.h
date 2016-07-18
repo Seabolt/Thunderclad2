@@ -109,6 +109,7 @@ class TCGraphicsContext_DX11 :
 				virtual TCResult	Lock( IGraphicsBuffer* buffer, void** data );
 				virtual TCResult	Unlock( IGraphicsBuffer* buffer, void* data, unsigned int dataSize );
 				virtual TCResult	Copy( IGraphicsBuffer* source, IGraphicsBuffer* dest );
+				virtual TCResult	Release();
 
 			protected: // Variables
 				TCGraphicsContext_DX11*		mDX11GraphicsContext;
@@ -156,6 +157,10 @@ class TCGraphicsContext_DX11 :
 
 				virtual TCResult			AddReference( IGraphicsResource& toReference, void* platformResources );
 				virtual	TCResult			RemoveReference( IGraphicsResource& source );
+				virtual TCResult			Release();
+				virtual	TCResult			ReleaseConstantBuffers();
+				virtual TCResult			ReleaseShaderPrograms();
+				virtual TCResult			ReleaseShaders();
 						
 			private:
 						D3D_SHADER_MACRO*	CreateMacroArray( void* defineData );

@@ -72,6 +72,8 @@ class TCGraphicsContext
 		{
 			public:
 									TCBufferContext( TCGraphicsContext* context )											{ mContext = NULL; }
+				virtual TCResult	Release()																				{ return Failure_NotImplemented; }
+
 			protected:
 				virtual TCResult	CreateVertexBuffer( void* description, TCVertexBuffer* bufferToCreate )					{ return Failure_NotImplemented; }
 				virtual TCResult	CreateIndexBuffer( void* description, TCIndexBuffer* bufferToCreate )					{ return Failure_NotImplemented; }
@@ -99,6 +101,8 @@ class TCGraphicsContext
 		{
 			public:
 									TCShaderContext( TCGraphicsContext* context )											{ mContext = NULL; }
+				virtual TCResult	Release()																				{ return Failure_NotImplemented; }
+
 			protected:
 				virtual TCResult	CreateVertexShader( void* description, TCShader* shaderToCreate )						{ return Failure_NotImplemented; }
 				virtual	TCResult	CreatePixelShader( void* description, TCShader* shaderToCreate )						{ return Failure_NotImplemented; }
@@ -133,11 +137,8 @@ class TCGraphicsContext
 				virtual TCResult			AddReference( IGraphicsResource& inRef, void* resourceData )					{ return Failure_NotImplemented; }
 				virtual TCResult			RemoveReference( IGraphicsResource& inRef )										{ return Failure_NotImplemented; }
 
+
 				TCGraphicsContext*				mContext;
-				TCList< TCShader* >				mShaders;
-				TCList< TCConstantBuffer* >		mConstantBuffers;
-				TCList< TCShaderUniform* >		mShaderUniforms;
-				TCList< TCShaderProgram* >		mShaderProgram;
 
 				friend class TCShader;
 				friend class TCShaderProgram;

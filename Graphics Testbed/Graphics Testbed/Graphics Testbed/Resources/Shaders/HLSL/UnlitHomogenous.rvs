@@ -6,7 +6,7 @@ ShaderProperties:
     ConstantBuffers:
         - name                      : cbObjectProperties
           register                  : 2
-          size                      : 12
+          size                      : 16
           shaderType                : kShaderTypeVertex
     Uniforms:
         - name                      : gTint
@@ -24,7 +24,7 @@ ShaderProperties:
           type                      : kShaderAttributeTypeFloat4
           usage                     : kShaderAttributeUsageColor0
 
-ShaderText:  >
+ShaderText: |
     //--
     // UnlitHomogenous.vs
     //

@@ -539,3 +539,17 @@ TCResult TCGraphicsContext_DX11::TCBufferContext_DX11::Copy( IGraphicsBuffer* so
 
 	return Success;
 }
+
+//
+// Release
+//		- Will release all resources associated with this context.
+// Inputs:
+//		- None.
+// Outputs:
+//		- None.
+//
+
+TCResult TCGraphicsContext_DX11::TCBufferContext_DX11::Release()
+{
+	return Success;
+}

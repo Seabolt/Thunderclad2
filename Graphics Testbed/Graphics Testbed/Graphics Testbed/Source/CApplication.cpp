@@ -35,36 +35,7 @@ void CApplication::Initialize( TCWindow* mainWindow )
 	// Setup our resource directory.
 	//
 
-	mFileManager->SetResourceDirectory( TCString( "C:\\Thunderclad\\Graphics Testbed\\Graphics Testbed\\Graphics Testbed\\Resources\\" ) );
-
-	//
-	// Create the vertex shader.
-	//
-
-	vertexShader = new TCShader( mGraphicsContext );
-
-	TCShader::Description description;
-	description.shaderFilepath = mFileManager->GetResourceDirectory() + "Shaders\\HLSL\\UnlitHomogenous.rvs";
-	description.shaderType = TCShader::kShaderTypeVertex;
-	description.shaderName = "UnlitHomogenous.rvs";
-	if( TC_FAILED( vertexShader->Initialize( description ) ) )
-	{
-		TCLogger::GetInstance()->LogError( "Failed to create vertex shader" );
-	}
-
-	//
-	// Create the pixel shader.
-	//
-
-	pixelShader = new TCShader( mGraphicsContext );
-
-	description.shaderFilepath = mFileManager->GetResourceDirectory() + "Shaders\\HLSL\\UnlitHomogenous.rps";
-	description.shaderType = TCShader::kShaderTypePixel;
-	description.shaderName = "UnlitHomogenous.rps";
-	if( TC_FAILED( pixelShader->Initialize( description ) ) )
-	{
-		TCLogger::GetInstance()->LogError( "Failed to create pixel shader" );
-	}
+	mFileManager->SetResourceDirectory( TCString( "C:\\Thunderclad\\Thunderclad\\Graphics Testbed\\Graphics Testbed\\Graphics Testbed\\Resources\\" ) );
 }
 
 //

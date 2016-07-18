@@ -15,6 +15,7 @@
 #include "TCMemUtils.h"
 
 #include "CApplication.h"
+#include "CHelloTriangle.h"
 
 //
 // Defines
@@ -96,7 +97,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
 	// Create our application.
 	//
 
-	gApplication = new CApplication();
+	gApplication = new CHelloTriangle();
 	gApplication->Initialize( gDefaultWindow );
 
 	//

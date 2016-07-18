@@ -5,9 +5,10 @@ ShaderProperties:
     Model       : HLSL_4
     Attributes  :
         - name  : color
-          size  : kShaderAttributeTypeFloat4
+          type  : kShaderAttributeTypeFloat4
           usage : kShaderAttributeUsageColor0
-ShaderText: >
+
+ShaderText: |
     //--
     // UnlitHomogenous.rps
     //
@@ -27,7 +28,7 @@ ShaderText: >
     //--
     struct PixelOutput
     {
-        float4 color    : COLOR;
+        float4 color    : SV_TARGET;
     };
 
     //--

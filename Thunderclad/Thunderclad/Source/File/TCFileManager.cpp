@@ -398,6 +398,10 @@ void TCFileManager::SetResourceDirectory( TCString& path )
 	{
 		mResourceDirectory = path;
 	}
+	else
+	{
+		TC_ASSERT(0 && (TCString("Invalid resource directory set!") + path).Data());
+	}
 }
 
 //

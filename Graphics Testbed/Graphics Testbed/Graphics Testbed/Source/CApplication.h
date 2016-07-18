@@ -38,9 +38,6 @@ class CApplication : public TCApplication
 		virtual void OnEventFired( TCEventID eventID, void* eventData );
 
 	private:	// Members
-		TCShader* vertexShader;
-		TCShader* pixelShader;
-
 	private:	// Methods
 };
 

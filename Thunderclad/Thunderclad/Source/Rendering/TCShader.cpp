@@ -524,7 +524,7 @@ TCResult TCShader::Import( const TCString& filepath, void** output )
 	if( TC_FAILED( result ) )
 	{
 		TCLogger::GetInstance()->LogError( TCString( "[TCShader] Failed to import shader at location: ") + filepath + ", with result: " + TCResultUtils::ResultToString( result ) );
-		TC_SAFE_DELETE( output );
+		TC_SAFE_DELETE( *output );
 		return result;
 	}
 

@@ -148,6 +148,20 @@ TCResult TCGraphicsContext_DX11::Initialize( TCGraphicsContext::Description& des
 
 TCResult TCGraphicsContext_DX11::Destroy()
 {
+	if (mBufferContext != NULL)
+	{
+		mBufferContext->Release();
+		delete mBufferContext;
+		mBufferContext = NULL;
+	}
+
+	if( mShaderContext != NULL )
+	{
+		mShaderContext->Release();
+		delete mShaderContext;
+		mShaderContext = NULL;
+	}
+
 	TC_SAFE_RELEASE( mBackBufferView );
 	TC_SAFE_RELEASE( mDepthStencilView );
 	TC_SAFE_RELEASE( mDepthStencilTexture );
@@ -156,7 +170,6 @@ TCResult TCGraphicsContext_DX11::Destroy()
 	TC_SAFE_RELEASE( mSwapChain );
 	TC_SAFE_RELEASE( mDeviceContext );
 	TC_SAFE_RELEASE( mDevice );
-	TC_SAFE_DELETE( mBufferContext );
 
 	return Success;
 }

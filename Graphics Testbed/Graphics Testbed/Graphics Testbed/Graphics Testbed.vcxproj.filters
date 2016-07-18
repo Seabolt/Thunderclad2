@@ -21,9 +21,15 @@
     <ClCompile Include="Source\CApplication.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\CHelloTriangle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\CApplication.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CHelloTriangle.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

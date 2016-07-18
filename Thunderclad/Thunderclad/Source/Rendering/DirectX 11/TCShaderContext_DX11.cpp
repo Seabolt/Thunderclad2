@@ -22,6 +22,8 @@
 // Defines
 //
 
+#define TC_SAFE_RELEASE( resource )					{ if( resource != NULL ) { resource->Release(); resource = NULL; } }
+
 //
 // TCShaderContext_DX11
 //		- Will create a TCShaderContext_DX11.
@@ -220,6 +222,10 @@ TCResult TCGraphicsContext_DX11::TCShaderContext_DX11::CreateVertexShader( void*
 		TCLogger::GetInstance()->LogError( TCString("[TCShader] Failed to create vertex shader: ") + TCString( shader->GetName() ) + TCString( ", failed to create platform shader" ) );
 		return Failure_InvalidOperation;
 	}
+	else
+	{
+		TC_SAFE_RELEASE(shaderBlob);
+	}
 
 	//
 	// Set the graphics resources.
@@ -316,6 +322,10 @@ TCResult TCGraphicsContext_DX11::TCShaderContext_DX11::CreatePixelShader( void* 
 	{
 		TCLogger::GetInstance()->LogError( TCString("[TCShader] Failed to create pixel shader: ") + TCString( shader->GetName() ) + TCString( ", failed to create platform shader" ) );
 		return Failure_InvalidOperation;
+	}
+	else
+	{
+		TC_SAFE_RELEASE(shaderBlob);
 	}
 
 	//
@@ -528,11 +538,13 @@ TCResult TCGraphicsContext_DX11::TCShaderContext_DX11::ReleasePixelShader( TCSha
 	}
 
 	platformData->mNumReferences--;
-	if( platformData->mNumReferences < 0 )
+	if( platformData->mNumReferences <= 0 )
 	{
+		TC_SAFE_RELEASE(platformData->mPixelShader);
 		delete platformData;
 	}
 
+	mShaders.Remove(shader);
 	return Success;
 }
 
@@ -554,11 +566,13 @@ TCResult TCGraphicsContext_DX11::TCShaderContext_DX11::ReleaseVertexShader( TCSh
 	}
 
 	platformData->mNumReferences--;
-	if( platformData->mNumReferences < 0 )
+	if( platformData->mNumReferences <= 0 )
 	{
+		TC_SAFE_RELEASE(platformData->mVertexShader);
 		delete platformData;
 	}
 
+	mShaders.Remove(shader);
 	return Success;
 }
 
@@ -618,11 +632,13 @@ TCResult TCGraphicsContext_DX11::TCShaderContext_DX11::ReleaseConstantBuffer( TC
 	}
 
 	platformData->mNumReferences--;
-	if( platformData->mNumReferences < 0 )
+	if( platformData->mNumReferences <= 0 )
 	{
+		TC_SAFE_RELEASE(platformData->mConstantBuffer);
 		delete platformData;
 	}
 
+	mConstantBuffers.Remove(buffer);
 	return Success;
 }
 
@@ -1062,11 +1078,11 @@ TCConstantBuffer* TCGraphicsContext_DX11::TCShaderContext_DX11::GetConstantBuffe
 
 TCShaderProgram* TCGraphicsContext_DX11::TCShaderContext_DX11::GetShaderProgram( TCString& shaderProgramName )
 {
-	for( int currentShaderProgram = 0; currentShaderProgram < mShaderProgram.Count(); ++currentShaderProgram )
+	for( int currentShaderProgram = 0; currentShaderProgram < mShaderPrograms.Count(); ++currentShaderProgram )
 	{
-		if( mShaderProgram[ currentShaderProgram ]->GetName() == shaderProgramName )
+		if(mShaderPrograms[ currentShaderProgram ]->GetName() == shaderProgramName )
 		{
-			return mShaderProgram[ currentShaderProgram ];
+			return mShaderPrograms[ currentShaderProgram ];
 		}
 	}
 
@@ -1115,6 +1131,125 @@ TCResult TCGraphicsContext_DX11::TCShaderContext_DX11::RemoveReference( IGraphic
 	}
 
 	platformData->mNumReferences--;
+	return Success;
+}
+
+//
+// Release
+//		- Will release all resources associated with the shader context.
+// Inputs:
+//		- None.
+// Outputs:
+//		- TCResult: The result of the operation.
+//
+
+TCResult TCGraphicsContext_DX11::TCShaderContext_DX11::Release()
+{
+	//
+	// Release all the sub components.
+	//
+	
+	TCResult result = ReleaseConstantBuffers();
+	if (TC_FAILED(result))
+	{
+		TCLogger::GetInstance()->LogError("[TCShaderContext_DX11] Failed to release all constant buffers!");
+		return result;
+	}
+
+	result = ReleaseShaderPrograms();
+	if (TC_FAILED(result))
+	{
+		TCLogger::GetInstance()->LogError("[TCShaderContext_DX11] Failed to release all the shader programs!");
+		return result;
+	}
+
+	result = ReleaseShaders();
+	if( TC_FAILED( result ) )
+	{
+		TCLogger::GetInstance()->LogError("[TCShaderContext_DX11] Failed to release all shaders!");
+		return result;
+	}
+
+	return Success;
+}
+
+//
+// ReleaseConstantBuffers
+//		- Will release all constant buffers
+// Inputs:
+//		- None.
+// Outputs:
+//		- TCResult: The result of the operation.
+//
+
+TCResult TCGraphicsContext_DX11::TCShaderContext_DX11::ReleaseConstantBuffers()
+{
+	for (int currentConstantBuffer = mConstantBuffers.Count() - 1; currentConstantBuffer >= 0; --currentConstantBuffer)
+	{
+		ReleaseConstantBuffer(mConstantBuffers[currentConstantBuffer]);
+	}
+	mConstantBuffers.Clear();
+
+	return Success;
+}
+
+//
+// ReleaseShaderPrograms
+//		- Will release all shader programs
+// Inputs:
+//		- None.
+// Outputs:
+//		- TCResult: The result of the operation.
+//
+
+TCResult TCGraphicsContext_DX11::TCShaderContext_DX11::ReleaseShaderPrograms()
+{
+	for (int currentShaderProgram = mConstantBuffers.Count() - 1; currentShaderProgram >= 0; --currentShaderProgram)
+	{
+		ReleaseShaderProgram(mShaderPrograms[currentShaderProgram]);
+	}
+	mShaderPrograms.Clear();
+
+	return Success;
+}
+
+//
+// ReleaseShaders
+//		- Will release all shaders
+// Inputs:
+//		- None.
+// Outputs:
+//		- TCResult: The result of the operation.
+//
+
+TCResult TCGraphicsContext_DX11::TCShaderContext_DX11::ReleaseShaders()
+{
+	for (int currentShader = mShaders.Count() - 1; currentShader >= 0; --currentShader)
+	{
+		switch (mShaders[currentShader]->GetType())
+		{
+			case TCShader::kShaderTypeVertex:
+			{
+				ReleaseVertexShader(mShaders[currentShader]);
+				break;
+			}
+
+			case TCShader::kShaderTypePixel:
+			{
+				ReleasePixelShader(mShaders[ currentShader ] );
+				break;
+			}
+
+			default:
+			{
+				TC_ASSERT("Failed to release unknown shader type!" && 0);
+				break;
+			}
+
+		}
+	}
+	mShaders.Clear();
+
 	return Success;
 }
 
